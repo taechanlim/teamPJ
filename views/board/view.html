@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1><a href="/">LOGO</a></h1>
+    <h2><a href="/board/list">게시판</a></h2>
+    <h4>게시판 VIEW</h4>
+    <ul>
+        <li>글번호 : {{idx}}</li>
+        <li>제목 : {{subject}}</li>
+        <li>작성자 : {{nickname}}</li>
+        <li>작성일 : {{date}}</li>
+        <li>조회수 : {{hit}}</li>
+        <li>내용 : {{content}}</li>
+    </ul>
+    <a href="/board/list">목록가기</a>
+    {% if checkUser %}
+    <a href="/board/delete?idx={{idx}}">글 삭제</a>
+    <a href="/board/update?idx={{idx}}">글 수정</a>
+    {% endif %}
+    
+</body>
+</html>
