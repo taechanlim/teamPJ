@@ -5,23 +5,18 @@ const express = require('express')
 const nunjucks = require('nunjucks')
 const app = express()
 
+const router = require('./routes/index')
+
 app.set('view engine', 'html')
 nunjucks.configure('views', { express: app })
 
-
-const boarddb = require('./models/boarddb')
 const userdb = require('./models/userdb')
 
 
 
 
 // main
-app.get('/', (req, res) => {
-    res.render('index')
-})
-
-
-
+app.use(router)
 
 
 // user
@@ -40,27 +35,6 @@ app.get('/user/welcome', (req, res) => {
 app.get('/user/profile', (req, res) => {
     res.render('user/profile')
 })
-
-
-
-
-// board
-app.get('/board/list', (req, res) => {
-    res.render('board/list', { list: boarddb })
-})
-
-app.get('/board/view', (req, res) => {
-    res.render('board/view')
-})
-
-app.get('/board/write', (req, res) => {
-    res.render('board/write')
-})
-
-app.get('/board/update', (req, res) => {
-    res.render('board/update')
-})
-
 
 
 // admin
