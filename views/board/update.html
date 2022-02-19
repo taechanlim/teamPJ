@@ -12,8 +12,9 @@
     <h4>글수정</h4>
     <form method="post" action="/board/update?idx={{idx}}">
         <ul>
-            <li>제목 : <input type="text" name="subject" value="{{subject}}"></li>
-            <li>내용 : <input type="text" name="content" value="{{content}}"></li>
+            <li>글번호 : {{item.idx}}<input type="hidden" name="idx" value="{{item.idx}}"></li>
+            <li>제목 : <input type="text" name="subject" value="{{item.subject}}"></li>
+            <li>내용 : <input type="text" name="content" value="{{item.content}}"></li>
         </ul>
         <input type="submit">
     </form>
