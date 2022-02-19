@@ -20,13 +20,12 @@
         {% for item in list%}
         <tr>
             <td>{{item.userId}}</td>
-            <td><a href="/user/profile?id={{userId}}">{{item.userName}}</a></td>
+            <td><a href="/user/profile">{{item.userName}}</a></td>
             <td>{{item.nickname}}</td>
             <td>{{item.level}}</td>
             <td>{{item.active}}</td>
         </tr>
         {% endfor %}
     </table>
-    <a href="/board/write">글쓰기</a>
 </body>
 </html>
