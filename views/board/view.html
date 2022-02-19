@@ -20,8 +20,11 @@
     </ul>
     <a href="/board/list">목록가기</a>
     {% if checkUser %}
-    <a href="/board/delete?idx={{item.idx}}">글 삭제</a>
     <a href="/board/update?idx={{item.idx}}">글 수정</a>
+    <form method="post" action="/board/delete">
+        <input type="hidden" name="idx" value="{{idx}}">
+        <input type="submit" value="삭제">
+    </form>
     {% endif %}
     
 </body>
