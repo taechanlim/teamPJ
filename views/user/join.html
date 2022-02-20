@@ -1,31 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1><a href="/">LOGO</a></h1>
+{% extends "./_layout.html" %}
+{% block content %}
+<div id="join-content">
     <h2>회원가입</h2>
     <form method="POST" action="/user/join">
-        <ul>
-            <li>아이디 : <input type="text" name="userId"></li>
-            <li>패스워드 : <input type="password" name="userPw"></li>
-            <li>패스워드 확인 : <input type="password" name="checkPw"></li>
-            <li>이름 : <input type="text" name="userName"></li>
-            <li>별명 : <input type="text" name="nickname"></li>
-            <li>생년월일(19000101형태로 입력) : <input type="text" name="birth"></li>
-            <li>성별(여자,남자) : <input type="text" name="gender"></li>
-            <li>전화번호(0211112222형태로 입력) : <input type="text" name="number"></li>
-            <li>핸드폰번호(01011112222형태로 입력) : <input type="text" name="phoneNumber"></li>
+        <ul id="join-menu">
+            <li><p>아이디</p><div class="menu-content"><input type="text" name="userId"></div></li>
+            <li><p>비밀번호</p><div class="menu-content"><input type="password" name="userPw"></div></li>
+            <li><p>비밀번호 재확인</p><div class="menu-content"><input type="password" name="checkPw"></div></li>
+            <li><p>이름</p><div class="menu-content"><input type="text" name="userName"></div></li>
+            <li><p>닉네임</p><div class="menu-content"><input type="text" name="nickname"></div></li>
+            <li><p>성별</p><div class="menu-content">
+                <select name="gender" id="select-gender">
+                    <option value selected>성별</option>
+                    <option value="M">남자</option>
+                    <option value="W">여자</option>
+                    <option value="U">선택 안함</option>
+                </select>
+            </div></li>
+            <li><p>핸드폰번호</p><div class="menu-content"><input type="text" name="phoneNumber"></div></li>
             <input type="hidden" name="level" value=3>
             <input type="hidden" name="active" value=1>
         </ul>
-        <input type="submit" value="가입하기">
+        <input id="btn" type="submit" value="가입하기">
     </form>
-    (생년월일, 성별, 번호 같은 숫자/2중택일 형태의 인풋은 후에 수정하도록 하겠음)
-    화면에 없는 level, active 필드도 꼭 확인해주세요
-</body>
-</html>
+</div>
+{% endblock %}

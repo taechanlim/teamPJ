@@ -1,22 +1,25 @@
-{% extends "./_boardLayout.html" %}
+{% extends "./_layout.html" %}
 {% block content %}
-<table>
-    <tr>
-        <td>글번호</td>
-        <td>제목</td>
-        <td>작성자</td>
-        <td>작성일</td>
-        <td>조회수</td>
-    </tr>
-    {% for item in list%}
-    <tr>
-        <td>{{item.idx}}</td>
-        <td><a href="/board/view?idx={{item.idx}}">{{item.subject}}</a></td>
-        <td>{{item.nickname}}</td>
-        <td>{{item.date}}</td>
-        <td>{{item.hit}}</td>
-    </tr>
-    {% endfor %}
-</table>
-<a href="/board/write">글쓰기</a>
+<div id="list-content">
+    <table>
+        <tr>
+            <td>글번호</td>
+            <td>제목</td>
+            <td>작성자</td>
+            <td>작성일</td>
+            <td>조회수</td>
+        </tr>
+        {% for item in list%}
+        <tr>
+            <td>{{item.idx}}</td>
+            <td><a href="/board/view?idx={{item.idx}}">{{item.subject}}</a></td>
+            <td>{{item.nickname}}</td>
+            <td>{{item.date}}</td>
+            <td>{{item.hit}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="/board/write">글쓰기</a>
+</div>
 {% endblock %}
+
