@@ -1,5 +1,7 @@
-# 각 라우터에서 넘겨줄 변수는 해당 라우터와 연결된 html 파일을 참고해주세요
+# git pull origin main 으로 변경사항 가져온 뒤 작업해주세요
+# server.js 파일에 app.use(express.static('public') 
 
+## 각 라우터에서 넘겨줄 변수는 해당 라우터와 연결된 html 파일을 참고해주세요
 ## user
 - userId
 - userPw
