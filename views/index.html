@@ -1,25 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1><a href="/">LOGO</a></h1>
-    <ul>
-        <li><a href="/user/join">JOIN</a></li>
-        <li>
-            {% if isLogin %}
-            <a href="/user/logout">LOGOUT</a>
-            {% else %}
-            <a href="/user/login">LOGIN</a>
-            {% endif %}
-        </li>
-        <li><a href="/board/list">BOARD</a></li>
-        <li><a href="/user/profile">PROFILE</a></li>
-        <li><a href="/admin">ADMIN</a></li>
-    </ul>
-</body>
-</html>
+{% extends "./_layout.html" %}
+{% block content %}
+<div id="main-content"><p>슬라이드</p></div>
+{% endblock %}

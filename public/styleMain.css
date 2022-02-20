@@ -1,0 +1,129 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+ul, li {list-style: none;}
+a {text-decoration: none;}
+
+#wrap {
+    width: 100vw;
+    height: 100vh;
+    background: #F4EFEA;
+    
+    /* overflow: hidden; */
+}
+
+#header {
+    width: 100%;
+    height: 100px;
+    padding: 40px 15vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    background: #F4EFEA;
+    z-index: 3;
+}
+
+#header > h1 > a {
+    color: #9A161F;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+#header > #menu > #navi-flag {
+    display: none;
+}
+
+#hbgdiv {
+    background-color: #9A161F;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+}
+
+#hbgdiv > img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+
+#navi-flag + #hamburger + #navimenu {
+    display: none;
+    transform: translateY(100px);
+    transition: all 2s;
+}
+
+/* 
+#navi-flag:checked + #hamburger + #navimenu {
+    display: flex;
+    position:absolute;
+    top:20px;
+    left:0;
+    width: 100vw;
+    height: 100vh;
+    background: #9A161F;
+    flex-direction: column;
+    align-items: flex-start;
+    
+    z-index: 2;
+}
+ */
+
+ #navi-flag:checked + #hamburger + #navimenu {
+    display: flex;
+    position:fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #9A161F;
+    flex-direction: column;
+    align-items: flex-start;
+    z-index: 2;
+    padding: 100px 15vw;
+ }
+
+
+
+#navimenu > li {
+    padding: 10px 0;
+}
+
+#navimenu > li > a {
+    font-size: 60px;
+    color: #F4EFEA;
+    
+}
+
+#navimenu > li > a:hover {
+    border-bottom: 5px solid #F4EFEA;
+}
+
+
+
+#main-content {
+    height: 100vh;
+    padding-top: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    background: #F4EFEA;
+    
+}
+
+#main-content > p {
+    font-size: 300px;
+    font-weight: bold;
+    color: #9A161F;
+}
+
