@@ -1,21 +1,58 @@
 const express = require('express')
 const router = express.Router()
 const boarddb = require('../../models/boarddb')
+const list = [...boarddb.data]
 
 router.get('/list',(req,res)=>{
-    res.render('board/list',{list : boarddb})
+    res.render('board/list',{list : list})
 })
 
 router.get('/view',(req,res)=>{
-    res.render('board/view')
+    const index = req.query.idx
+    const view = list[index-1]
+    res.render('board/view',{
+        item:view,
+        index:index,
+    })
 })
 
 router.get('/write',(req,res)=>{
     res.render('board/write')
 })
 
+router.post('/write',(req,res)=>{
+    let board = {...req.body}
+    list.push(board)
+    res.redirect('/board/list')
+})
+
+router.post('/delete',(req,res)=>{
+    const index = req.body.idx-1
+    list.splice(index,1)
+    res.redirect('/board/list')
+})
+
 router.get('/update',(req,res)=>{
-    res.render('board/update')
+    const index = req.query.idx
+    const view = list[index-1]
+    res.render('board/update',{
+        item:view,
+        index:index,
+    })
+})
+
+router.post('/update',(req,res)=>{
+    const index = req.body.idx
+    const item = {
+        idx : req.body.idx,
+        subject:req.body.subject, 
+        nickname:req.body.nickname,
+        content:req.body.content,
+        date:req.body.date,
+        hit:req.body.hit,
+    }
+    list[index-1] = item
+    res.redirect(`/board/view?idx=${index}`)
 })
 
 module.exports = router

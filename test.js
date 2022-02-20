@@ -10,9 +10,9 @@ const router = require('./routes/index')
 app.set('view engine', 'html')
 nunjucks.configure('views', { express: app })
 
+app.use(express.urlencoded({extended:true,}))
+
 const userdb = require('./models/userdb')
-
-
 
 
 // main
