@@ -2,22 +2,26 @@
 {% block content %}
 <div id="list-content">
     <h2><a href="/board/list">게시판</a></h2>
-    <h4>게시판 VIEW</h4>
-    <ul>
-        <li>글번호 : {{item.idx}}</li>
-        <li>제목 : {{item.subject}}</li>
-        <li>작성자 : {{item.nickname}}</li>
-        <li>작성일 : {{item.date}}</li>
-        <li>조회수 : {{item.hit}}</li>
-        <li>내용 : {{item.content}}</li>
-    </ul>
-    <a href="/board/list">목록가기</a>
+    <table>
+        <tr class="title">
+            <td class="idx">{{item.idx}}</td>
+            <td class="'subject">{{item.subject}}</td>
+            <td class="nickname">{{item.nickname}}</td>
+            <td class="date">{{item.date}}</td>
+            <td class="hit">{{item.hit}}</td>
+        </tr>
+    </table>
+
+    <div id="view">
+        <p>{{item.content}}</p>
+    </div>
+    <a class="btn" href="/board/list">목록가기</a>
     {% if checkUser %}
-    <a href="/board/update?idx={{item.idx}}">글 수정</a>
+    <a class="btn" href="/board/update?idx={{item.idx}}">글 수정</a>
     
     <form method="post" action="/board/delete">
         <input type="hidden" name="idx" value="{{idx}}">
-        <input type="submit" value="삭제">
+        <input class="btn" type="submit" value="삭제">
     </form>
     {% endif %}
 </div>
