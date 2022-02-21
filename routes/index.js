@@ -1,7 +1,9 @@
+const { application } = require('express')
 const express = require('express')
 const router = express.Router()
 const user = require('../models/userdb')
 const boardRouter = require('./board/index')
+const userRouter = require('./user/index')
 
 
 // const Access = (req,res,next)=>{
@@ -22,5 +24,10 @@ router.get('/',(req,res)=>{
 
 //board 라우터 모음
 router.use('/board',boardRouter)
+
+
+//user
+router.use('/user',userRouter)
+
 
 module.exports = router
