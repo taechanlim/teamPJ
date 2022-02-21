@@ -33,23 +33,6 @@ const userdb = require('./models/userdb')
 app.use(router)
 
 
-// user
-app.get('/user/login', (req, res) => {
-    res.render('user/login')
-})
-
-app.get('/user/join', (req, res) => {
-    res.render('user/join')
-})
-
-app.get('/user/welcome', (req, res) => {
-    res.render('user/welcome')
-})
-
-app.get('/user/profile', (req, res) => {
-    res.render('user/profile')
-})
-
 
 // admin
 app.get('/admin', (req, res) => {
