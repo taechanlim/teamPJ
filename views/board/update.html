@@ -9,12 +9,13 @@
                 <p>제목</p>
                 <div id="subjectInput">
                     <input type="text" name="subject" value="{{item.subject}}">
+
                 </div>
             </li>
             <li></li>
             <li>
                 <p>내용</p>
-                <textarea name="content" id="content" cols="50" rows="10" value="{{item.content}}"></textarea>
+                <textarea name="content" id="content" cols="50" rows="10">{{item.content}}</textarea>
             </li>
         </ul>
         <input type="hidden" name="nickname" value="{{nickname}}">
