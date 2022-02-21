@@ -1,0 +1,39 @@
+{% extends "./_layout.html" %}
+{% block content %}
+<div id="login-content">
+    <h2>관리자페이지</h2>
+    <table>
+        <tr>
+            <td>아이디</td>
+            <td>이름</td>
+            <td>닉네임</td>
+            <td>레벨</td>
+            <td>이용상태</td>
+            <td>변경</td>
+        </tr>
+        {% for item in list%}
+        <tr>
+            <form method="post" action="/admin">
+                <td>{{item.userId}}</td>
+                <td><a href="/user/profile">{{item.userName}}</a></td>
+                <td>{{item.nickname}}</td>
+                <td>{{item.level}}
+                    <select name="level" id="select-level">
+                        <option value selected value={{item.level}}>레벨변경</option>
+                        <option value=1>최고관리자</option>
+                        <option value=2>관리자</option>
+                        <option value=3>회원</option>
+                    </select>
+                </td>
+                <td>
+                    <label><input type="radio" name="active" value="1" checked>이용가능</label>
+                    <label><input type="radio" name="active" value="0">중지</label>
+                </td>
+                <td><input type="submit" value="변경하기">
+                </td>
+            </form>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
