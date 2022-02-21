@@ -9,14 +9,18 @@
             <td>작성일</td>
             <td>조회수</td>
         </tr>
+        
+        {% set idx=1 %}
         {% for item in list%}
+        
         <tr>
             <td>{{item.idx}}</td>
-            <td><a href="/board/view?idx={{item.idx}}">{{item.subject}}</a></td>
+            <td><a href="/board/view?idx={{idx}}">{{item.subject}}</a></td>
             <td>{{item.nickname}}</td>
             <td>{{item.date}}</td>
             <td>{{item.hit}}</td>
         </tr>
+        {% set idx=idx+1 %}
         {% endfor %}
     </table>
     <a href="/board/write">글쓰기</a>
