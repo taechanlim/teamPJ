@@ -1,29 +1,36 @@
 {% extends "./_layout.html" %}
 {% block content %}
 <div id="list-content">
+    <h2><a href="/board/list">게시판</a></h2>
     <table>
-        <tr>
-            <td>글번호</td>
-            <td>제목</td>
-            <td>작성자</td>
-            <td>작성일</td>
-            <td>조회수</td>
+        <tr class="title">
+            <td class="idx">글번호</td>
+            <td class="'subject">제목</td>
+            <td class="nickname">작성자</td>
+            <td class="date">작성일</td>
+            <td class="hit">조회수</td>
         </tr>
         
         {% set idx=1 %}
         {% for item in list%}
         
-        <tr>
-            <td>{{item.idx}}</td>
-            <td><a href="/board/view?idx={{idx}}">{{item.subject}}</a></td>
-            <td>{{item.nickname}}</td>
-            <td>{{item.date}}</td>
-            <td>{{item.hit}}</td>
+        <tr class="article">
+            <td class="idx">{{item.idx}}</td>
+            <td class="subject"><a href="/board/view?idx={{item.idx}}">{{item.subject}}</a></td>
+            <td class="nickname">{{item.nickname}}</td>
+            <td class="date">{{item.date}}</td>
+            <td class="hit">{{item.hit}}</td>
         </tr>
         {% set idx=idx+1 %}
         {% endfor %}
     </table>
-    <a href="/board/write">글쓰기</a>
+    <ul id="page">
+        <!-- 이부분은 for문으로 처리할 예정 -->
+        <li><a href="/board/list?p=1">1</a></li>
+        <li><a href="/board/list?p=2">2</a></li>
+        <li><a href="/board/list?p=3">3</a></li>
+    </ul>
+    <a class='btn' href="/board/write">글쓰기</a>
 </div>
 {% endblock %}
 
