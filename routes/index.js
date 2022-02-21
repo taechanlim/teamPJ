@@ -1,7 +1,10 @@
+const { application } = require('express')
 const express = require('express')
 const router = express.Router()
 const user = require('../models/userdb')
 const boardRouter = require('./board/index')
+const userRouter = require('./user/index')
+const {alertmove} = require('../util/alert')
 const adminRouter = require('./admin/index')
 
 
@@ -26,5 +29,10 @@ router.use('/board', boardRouter)
 
 //admin 라우터 모음
 router.use('/admin', adminRouter)
+
+
+//user
+router.use('/user',userRouter)
+
 
 module.exports = router
