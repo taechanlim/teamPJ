@@ -3,6 +3,7 @@ const router = express.Router()
 const boarddb = require('../../models/boarddb')
 const list = [...boarddb.data]
 
+
 router.get('/list',(req,res)=>{
     res.render('board/list',{list : list})
 })
@@ -22,7 +23,8 @@ router.get('/write',(req,res)=>{
 
 router.post('/write',(req,res)=>{
     let board = {...req.body}
-    list.push(board)
+    let index = req.body.idx-1
+    list.push(board,index)
     res.redirect('/board/list')
 })
 
