@@ -24,13 +24,10 @@ router.get('/write',(req,res)=>{
 
 router.post('/write',(req,res)=>{
     let board = {...req.body}
-    console.log(board)
     for(let i=1 ;i<=list.length+1;i++){
         board.idx = i
     }
     list.push(board)
-    console.log(list)
-    
     res.redirect('/board/list')
 })
 
