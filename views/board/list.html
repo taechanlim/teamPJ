@@ -10,10 +10,7 @@
             <td class="date">작성일</td>
             <td class="hit">조회수</td>
         </tr>
-        
-        {% set idx=1 %}
         {% for item in list%}
-        
         <tr class="article">
             <td class="idx">{{item.idx}}</td>
             <td class="subject"><a href="/board/view?idx={{item.idx}}">{{item.subject}}</a></td>
@@ -21,7 +18,13 @@
             <td class="date">{{item.date}}</td>
             <td class="hit">{{item.hit}}</td>
         </tr>
-        {% set idx=idx+1 %}
+        <tr>
+            <td>{{item.idx}}</td>
+            <td><a href="/board/view?idx={{item.idx}}">{{item.subject}}</a></td>
+            <td>{{item.nickname}}</td>
+            <td>{{item.date}}</td>
+            <td>{{item.hit}}</td>
+        </tr>
         {% endfor %}
     </table>
     <ul id="page">
