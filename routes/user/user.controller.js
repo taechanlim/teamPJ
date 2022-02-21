@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const userlist
+const userdb = require('../../models/userdb')
+const {alertmove} = require('../../util/alert')
 
 const login = (req, res) => {
     //로그인 된 사용자는 접근 못함
@@ -9,7 +10,18 @@ const login = (req, res) => {
 
 const loginCheck = (req, res) => {
     // 세션 생성
-    res.redirect('/') //홈으로 보내기
+    const {userId,userPw} = req.body
+    let [item] = userdb.filter(v => v.userId===userId && v.userPw===userPw)
+    if(item!=undefined){
+        if(item.userId!=undefined){
+            req.session.user={...item}
+            res.redirect('/')
+        }
+    } else {
+        //아이디와 패스워드가 틀렸다고 알림뜨기.
+        res.send(alertmove('/user/login','아이디와 비민번호를 확인해주세요.'))
+        // res.redirect('/') //홈으로 보내기
+    }
 }
 
 const join = (req, res) => {
@@ -36,7 +48,10 @@ const profile = (req, res) => {
 
 const logout = (req, res) => {
     //로그인했던 사용자 세션 삭제
-    res.render('user/logout')//메인화면으로 보내기
+    // req.session.destroy(() => {
+    //     req.session;
+    //   });
+    res.redirect('/')//메인화면으로 보내기
 }
 
 

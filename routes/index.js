@@ -4,6 +4,7 @@ const router = express.Router()
 const user = require('../models/userdb')
 const boardRouter = require('./board/index')
 const userRouter = require('./user/index')
+const {alertmove} = require('../util/alert')
 
 
 // const Access = (req,res,next)=>{
@@ -17,6 +18,8 @@ const userRouter = require('./user/index')
 
 
 router.get('/',(req,res)=>{
+    let {user} = req.session
+    console.log(user)
     res.render('index')
 })
 
