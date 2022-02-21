@@ -5,6 +5,7 @@ const user = require('../models/userdb')
 const boardRouter = require('./board/index')
 const userRouter = require('./user/index')
 const {alertmove} = require('../util/alert')
+const adminRouter = require('./admin/index')
 
 
 // const Access = (req,res,next)=>{
@@ -17,16 +18,17 @@ const {alertmove} = require('../util/alert')
 // }
 
 
-router.get('/',(req,res)=>{
-    let {user} = req.session
-    console.log(user)
+router.get('/', (req, res) => {
     res.render('index')
 })
 
 
 
 //board 라우터 모음
-router.use('/board',boardRouter)
+router.use('/board', boardRouter)
+
+//admin 라우터 모음
+router.use('/admin', adminRouter)
 
 
 //user

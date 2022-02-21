@@ -21,10 +21,13 @@ router.get('/write',(req,res)=>{
     res.render('board/write')
 })
 
+
 router.post('/write',(req,res)=>{
     let board = {...req.body}
-    let index = req.body.idx-1
-    list.push(board,index)
+    for(let i=1 ;i<=list.length+1;i++){
+        board.idx = i
+    }
+    list.push(board)
     res.redirect('/board/list')
 })
 
