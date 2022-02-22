@@ -30,7 +30,17 @@ const join = (req, res) => {
 }
 
 const joinCheck = (req, res) => {
-    //로그인된 사용자는 접근 못함
+     //입력창을 전부 입력하지 않았을때
+     const {userId,userPw,checkPw,userName,nickname,gender,phoneNumber,level,active} =req.body
+
+     //아무것도 입력하지 않았을때
+     let blankFlag = (userId==''||userPw==''||checkPw==''||userName==''||nickname==''||gender==''||phoneNumber=='')
+     if(blankFlag==true){
+         //아무것도 입력하지 않았을때 출력결과
+         res.send(alertmove('/user/join','입력창에 입력을 모두 해주세요'))
+     }
+
+     
     res.render('user/join') //화면 렌더링
 }
 
