@@ -1,6 +1,6 @@
 function alertmove(path,msg){
-    let script=`
-    <script type="text/javascript>
+    let script = `
+    <script type="text/javascript">
         alert("${msg}")
         location.href="${path}"
     </script>

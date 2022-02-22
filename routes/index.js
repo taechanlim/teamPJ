@@ -19,7 +19,10 @@ const adminRouter = require('./admin/index')
 
 
 router.get('/', (req, res) => {
-    res.render('index')
+    let {user} = req.session
+    res.render('index',{
+        user
+    })
 })
 
 
