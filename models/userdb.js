@@ -11,4 +11,6 @@ let userdb = [
     }
 ]
 
-module.exports = userdb
+module.exports = {
+    userdb,
+}
