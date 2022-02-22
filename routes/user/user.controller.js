@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const userdb = require('../../models/userdb')
+const {userdb} = require('../../models/userdb')
 const {alertmove} = require('../../util/alert')
 
 const login = (req, res) => {
@@ -9,16 +9,16 @@ const login = (req, res) => {
 }
 
 const loginCheck = (req, res) => {
-     // 세션 생성
-     const {userId,userPw} = req.body
-     let [item] = userdb.filter(v => v.userId===userId && v.userPw===userPw)
-     if(item!=undefined){
-         if(item.userId!=undefined){
-             req.session.user={...item}
-             //홈으로 보내기
-             res.send(alertmove('/','로그인 되었습니다.'))
-         }
-     } else {
+    // 세션 생성
+    const {userId,userPw} = req.body
+    let [item] = userdb.filter(v => v.userId===userId && v.userPw===userPw)
+    if(item!=undefined){
+        if(item.userId!=undefined){
+            req.session.user={...item}
+            //홈으로 보내기
+            res.send(alertmove('/','로그인 되었습니다.'))
+        }
+    } else {
         //아이디와 패스워드가 틀렸다고 알림뜨기.
         res.send(alertmove('/user/login','아이디와 패스워드를 확인해주세요.'))
     }
@@ -30,15 +30,15 @@ const join = (req, res) => {
 }
 
 const joinCheck = (req, res) => {
-     //입력창을 전부 입력하지 않았을때
-     const {userId,userPw,checkPw,userName,nickname,gender,phoneNumber,level,active} =req.body
+    //입력창을 전부 입력하지 않았을때
+    const {userId,userPw,checkPw,userName,nickname,gender,phoneNumber,level,active} =req.body
 
-     //아무것도 입력하지 않았을때
-     let blankFlag = (userId==''||userPw==''||checkPw==''||userName==''||nickname==''||gender==''||phoneNumber=='')
-     if(blankFlag==true){
-         //아무것도 입력하지 않았을때 출력결과
-         res.send(alertmove('/user/join','입력창에 입력을 모두 해주세요'))
-     }else {
+    //아무것도 입력하지 않았을때
+    let blankFlag = (userId==''||userPw==''||checkPw==''||userName==''||nickname==''||gender==''||phoneNumber=='')
+    if(blankFlag==true){
+        //아무것도 입력하지 않았을때 출력결과
+        res.send(alertmove('/user/join','입력창에 입력을 모두 해주세요'))
+    } else {
         //모두 입력을 했을때 이후 로직
         //기존 유저중에 같은 id가 있을때
         let [checkId] = userdb.filter(v=>(v.userId===userId))
@@ -62,7 +62,7 @@ const joinCheck = (req, res) => {
             // console.log(userdb)
             res.send(alertmove('/user/welcome','회원가입이 완료되었습니다.'))
         }
-     }
+    }
 }
 
 const welcome = (req, res) => {
