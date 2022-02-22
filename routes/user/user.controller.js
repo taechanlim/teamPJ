@@ -53,6 +53,14 @@ const joinCheck = (req, res) => {
         } else if((phoneNumberFix<5)){
             //전화번호가 5자리 이하를 입력했을때 출력결과
             res.send(alertmove('/user/join','전화번호를 다시 입력해주세요'))
+        } else{
+            //회원리스트에 추가
+            let userdata = req.body
+            // console.log(userdata)
+            userdb.push(userdata)
+            req.session.user={...userdata}
+            // console.log(userdb)
+            res.send(alertmove('/user/welcome','회원가입이 완료되었습니다.'))
         }
      }
 }
