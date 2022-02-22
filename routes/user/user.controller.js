@@ -67,8 +67,15 @@ const joinCheck = (req, res) => {
 
 const welcome = (req, res) => {
     //1. 가입만하고 로그인은 되지 않은 상태 or 가입 즉시 로그인이 된 상태
+    
     // 가입한 회원의 정보를 가져와서 화면에 보이게
-    res.render('user/welcome') //화면 렌더링
+    console.log('웰컴 요청 : ',req.session)
+    const {user} = req.session
+
+    //화면 렌더링
+    res.render('user/welcome',{
+        item:user
+    }) 
 }
 
 const profile = (req, res) => {
