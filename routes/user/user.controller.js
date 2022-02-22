@@ -81,7 +81,11 @@ const welcome = (req, res) => {
 const profile = (req, res) => {
     //로그인한 회원의 정보를 가져와서 화면에 보이도록
     //로그인한 사용자본인+관리자계정에게만 페이지 보이게
-    res.render('user/profile') //화면 렌더링
+    console.log(req.session)
+    const {user} = req.session
+    res.render('user/profile',{
+        item:user
+    }) //화면 렌더링
 }
 
 const logout = (req, res) => {
