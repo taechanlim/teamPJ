@@ -18,15 +18,13 @@
                     <div id="hbgdiv"><img src="../img/hamburger.png" alt=""></div>
                 </label>
                 <ul id="navimenu">
-                    {% if user %}
                     <li><a href="/user/logout">로그아웃</a></li>
                     <li><a href="/user/profile">마이페이지</a></li>
                     <li><a href="/board/list">게시판</a></li>
-                    <li><a href="/admin">관리자페이지</a></li>
-                    {% else %}
+                    <li><a href="/admin/user">유저관리자페이지</a></li>
+                    <li><a href="/admin/board">게시판관리자페이지</a></li>
                     <li><a href="/user/login">LOGIN</a></li>
                     <li><a href="/user/join">JOIN</a></li>
-                    {% endif %}
                 </ul>
             </ul>
         </div>
