@@ -47,7 +47,13 @@ const joinCheck = (req, res) => {
 
         if (checkId!=undefined){
             res.send(alertmove('/user/join','동일한 아이디가 있습니다. 다른 아이디를 입력해주세요'))
-        } 
+        } else if(userPw!=checkPw){
+            //비밀번호가 서로 같지 않을때 출력결과
+            res.send(alertmove('/user/join','비밀번호가 서로 같지 않습니다. 다시 입력해주세요'))
+        } else if((phoneNumberFix<5)){
+            //전화번호가 5자리 이하를 입력했을때 출력결과
+            res.send(alertmove('/user/join','전화번호를 다시 입력해주세요'))
+        }
      }
 }
 
