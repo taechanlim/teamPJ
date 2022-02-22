@@ -15,4 +15,4 @@ let boarddb = [{
     hit: 0
 }]
 
-module.exports = {data:boarddb}
+module.exports = { data: boarddb }
