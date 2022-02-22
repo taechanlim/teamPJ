@@ -38,10 +38,17 @@ const joinCheck = (req, res) => {
      if(blankFlag==true){
          //아무것도 입력하지 않았을때 출력결과
          res.send(alertmove('/user/join','입력창에 입력을 모두 해주세요'))
-     }
+     }else {
+        //모두 입력을 했을때 이후 로직
+        //기존 유저중에 같은 id가 있을때
+        let [checkId] = userdb.filter(v=>(v.userId===userId))
+        const regex = /[^0-9]/g; // 숫자가 아닌 문자열을 선택하는 정규식
+        let phoneNumberFix = phoneNumber.replace(regex,"") //숫자외 값은 ''로 처리
 
-     
-    res.render('user/join') //화면 렌더링
+        if (checkId!=undefined){
+            res.send(alertmove('/user/join','동일한 아이디가 있습니다. 다른 아이디를 입력해주세요'))
+        } 
+     }
 }
 
 const welcome = (req, res) => {
