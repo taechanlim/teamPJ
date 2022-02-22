@@ -31,7 +31,7 @@ const join = (req, res) => {
 
 const joinCheck = (req, res) => {
     //입력창을 전부 입력하지 않았을때
-    const {userId,userPw,checkPw,userName,nickname,gender,phoneNumber,level,active} =req.body
+    const {userId,userPw,checkPw,userName,nickname,gender,phoneNumber} =req.body
 
     //아무것도 입력하지 않았을때
     let blankFlag = (userId==''||userPw==''||checkPw==''||userName==''||nickname==''||gender==''||phoneNumber=='')
@@ -56,10 +56,10 @@ const joinCheck = (req, res) => {
         } else{
             //회원리스트에 추가
             let userdata = req.body
-            // console.log(userdata)
-            userdb.push(userdata)
+            userdata.level='1' // 가입시 레벨 1
+            userdata.active='1' // 가입시 로그인이 되면서 상태 1
+            console.log(userdata)
             req.session.user={...userdata}
-            // console.log(userdb)
             res.send(alertmove('/user/welcome','회원가입이 완료되었습니다.'))
         }
     }
