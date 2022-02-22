@@ -5,6 +5,7 @@ const session = require('express-session')
 const { urlencoded } = require('express')
 const Memorystore = require('memorystore')(session)
 const router = require('./routes/index')
+const PORT = process.env.PORT || 3000
 
 app.set('view engine', 'html')
 nunjucks.configure('views', { express: app })
