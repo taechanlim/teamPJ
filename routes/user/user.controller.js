@@ -2,6 +2,10 @@ const express = require('express')
 const router = express.Router()
 const {userdb} = require('../../models/userdb')
 const {alertmove} = require('../../util/alert')
+require('dotenv').config()
+const mysql = require('mysql')
+const pool = require('../../models/userdb1')
+
 
 const login = (req, res) => {
     //로그인 된 사용자는 접근 못함
@@ -22,6 +26,7 @@ const loginCheck = (req, res) => {
         //아이디와 패스워드가 틀렸다고 알림뜨기.
         res.send(alertmove('/user/login','아이디와 패스워드를 확인해주세요.'))
     }
+    //로그인상태는 세션으로 처리하기
 }
 
 const join = (req, res) => {
@@ -56,11 +61,25 @@ const joinCheck = (req, res) => {
         } else{
             //회원리스트에 추가
             let userdata = req.body
+            delete userdata.checkPw //확인 비밀번호 제거
             userdata.level='1' // 가입시 레벨 1
-            userdata.active='1' // 가입시 로그인이 되면서 상태 1
-            console.log(userdata)
-            req.session.user={...userdata}
-            res.send(alertmove('/user/welcome','회원가입이 완료되었습니다.'))
+            userdata.active='1' // 허용 레벨 1
+            // console.log(userdata)
+            req.session.user={...userdata} // 데이터에 저장할 완성본
+            
+            pool.getConnection((err, conn) => {
+                const sql = "INSERT INTO userdb SET ?" //입력값을 폼 그대로 가져옴.
+                conn.query(sql,userdata,function(error, result){ //sql값을 userdata 데이터베이스에 넣음.
+                    if (!error) {
+                        // const ID = result[0].userId
+                        console.log(sql)
+                        res.send(alertmove('/user/welcome','회원가입이 완료되었습니다.'))
+                    }
+                    else {
+                        throw error
+                    }
+                })
+            })
         }
     }
 }
@@ -69,7 +88,6 @@ const welcome = (req, res) => {
     //1. 가입만하고 로그인은 되지 않은 상태 or 가입 즉시 로그인이 된 상태
     
     // 가입한 회원의 정보를 가져와서 화면에 보이게
-    console.log('웰컴 요청 : ',req.session)
     const {user} = req.session
 
     //화면 렌더링
@@ -81,7 +99,7 @@ const welcome = (req, res) => {
 const profile = (req, res) => {
     //로그인한 회원의 정보를 가져와서 화면에 보이도록
     //로그인한 사용자본인+관리자계정에게만 페이지 보이게
-    console.log(req.session)
+    // console.log(req.session)
     const {user} = req.session
     res.render('user/profile',{
         item:user
