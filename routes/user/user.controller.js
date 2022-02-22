@@ -18,7 +18,10 @@ const loginCheck = (req, res) => {
              //홈으로 보내기
              res.send(alertmove('/','로그인 되었습니다.'))
          }
-     }
+     } else {
+        //아이디와 패스워드가 틀렸다고 알림뜨기.
+        res.send(alertmove('/user/login','아이디와 패스워드를 확인해주세요.'))
+    }
 }
 
 const join = (req, res) => {
