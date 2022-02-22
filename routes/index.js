@@ -8,14 +8,14 @@ const {alertmove} = require('../util/alert')
 const adminRouter = require('./admin/index')
 
 
-// const Access = (req,res,next)=>{
-//     let { user }=req.session
-//     if(user != undefined){
-//        next()
-//     }else{
-//         res.send(alertmove('/','회원만 가능한 기능입니다'))
-//     }
-// }
+const Access = (req,res,next)=>{
+    let { user }=req.session
+    if(user != undefined){
+       next()
+    }else{
+        res.send(alertmove('/','회원만 가능한 기능입니다'))
+    }
+}
 
 
 router.get('/', (req, res) => {
@@ -28,7 +28,7 @@ router.get('/', (req, res) => {
 
 
 //board 라우터 모음
-router.use('/board', boardRouter)
+router.use('/board',Access,boardRouter)
 
 //admin 라우터 모음
 router.use('/admin', adminRouter)
