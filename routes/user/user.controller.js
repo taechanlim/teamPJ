@@ -35,12 +35,19 @@ const join = (req, res) => {
 }
 
 const joinCheck = (req, res) => {
-//아무것도 입력하지 않았을때
-let blankFlag = (userId==''||userPw==''||checkPw==''||userName==''||nickname==''||gender==''||phoneNumber=='')
-if(blankFlag==true){
-    //전부 입력하지 않았을때 출력결과
-    res.send(alertmove('/user/join','입력창에 입력을 모두 해주세요'))
-} else {
+    userdata = req.body
+    let {userId,userPw,checkPw,userName,nickname,gender,phoneNumber,level,active} = userdata
+    userdata.level = '1'
+    userdata.active = '1';
+    console.log('userdata 초기화 데이터 ---> ',userdata)
+    console.log('userId ---> ',userId)
+    
+    //아무것도 입력하지 않았을때
+    let blankFlag = (userId==''||userPw==''||checkPw==''||userName==''||nickname==''||gender==''||phoneNumber=='')
+    if(blankFlag==true){
+        //전부 입력하지 않았을때 출력결과
+        res.send(alertmove('/user/join','입력창에 입력을 모두 해주세요'))
+    } else {
     //모두 입력을 했을때 이후 로직
     let [checkId] = userdb.filter(v=>(v.userId===userId))
     const regex = /[^0-9]/g; // 숫자가 아닌 문자열을 선택하는 정규식
@@ -76,11 +83,12 @@ if(blankFlag==true){
                     }
                 })
                 res.redirect('/user/welcome')
-            }
+                }
+            })
         })
-    })
+    }
 }
-}
+
 
 const welcome = (req, res) => {
     //1. 가입만하고 로그인은 되지 않은 상태 or 가입 즉시 로그인이 된 상태
