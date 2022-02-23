@@ -1,21 +1,33 @@
 const express = require('express')
 const router = express.Router()
-const boarddb = require('../../models/boarddb')
-const list = [...boarddb.data]
-
+const pool = require('../../models/boarddb2.js')
 
 router.get('/list',(req,res)=>{
-    res.render('board/list',{list : list})
+    pool.getConnection((err, connection) => {
+        
+        connection.query('select * from board',
+        (error, result) => {
+        if (error) {throw error}
+            else{
+                res.render('board/list',{list:result})
+            }
+        })
+    })
 })
 
 router.get('/view',(req,res)=>{
-    const index = req.query.idx
-    const view = list[index-1]
-    res.render('board/view',{
-        item:view,
-        index:index,
-    })
+    const index = req.query.idx //정상
+    pool.getConnection((err, connection) => {
+        connection.query(`select * from board where idx=${index}`,
+        (error, result) => {
+        if (error) {throw error}
+            else{
+                res.render('board/view',{list:result})
+            }
+        })
+    })  
 })
+
 
 router.get('/write',(req,res)=>{
     res.render('board/write')
@@ -24,19 +36,35 @@ router.get('/write',(req,res)=>{
 
 router.post('/write',(req,res)=>{
     let board = {...req.body}
-    for(let i=1 ;i<=list.length+1;i++){
-        board.idx = i
-    }
-    list.push(board)
-    res.redirect('/board/list')
+    let {subject,content} = board
+    let nickname = req.session.user.nickname
+    let schemafields = [subject,content,nickname]
+    let sql = `INSERT INTO board(subject,content,nickname,date,hit) values(?,?,?,CURRENT_TIMESTAMP,0) `
+    pool.getConnection((err, connection) => {
+        connection.query(sql,schemafields,(error, result) => {
+        if (!error) { 
+            res.redirect('/board/list')
+        }else {
+                throw error
+            }
+        })
+    })
 })
 
 router.post('/delete',(req,res)=>{
-    const index = req.body.idx-1
-    list.splice(index,1)
-    res.redirect('/board/list')
+    const index = req.body.idx
+    console.log(index)
+    pool.getConnection((err, connection) => {
+        let sql = `DELETE from board WHERE idx=${index}`
+            connection.query(sql,(error, result) => {
+            if (!error) {
+                res.redirect('/board/list')
+            }else {
+                    throw error
+                }
+        })
+    })
 })
-
 router.get('/update',(req,res)=>{
     const index = req.query.idx
     const view = list[index-1]
@@ -45,7 +73,6 @@ router.get('/update',(req,res)=>{
         index:index,
     })
 })
-
 router.post('/update',(req,res)=>{
     const index = req.body.idx
     const item = {
