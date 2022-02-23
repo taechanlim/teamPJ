@@ -6,7 +6,6 @@ require('dotenv').config()
 const mysql = require('mysql')
 const pool = require('../../models/userdb1')
 
-
 const login = (req, res) => {
     //로그인 된 사용자는 접근 못함
     res.render('user/login') //화면 렌더링
@@ -15,18 +14,28 @@ const login = (req, res) => {
 const loginCheck = (req, res) => {
     // 세션 생성
     const {userId,userPw} = req.body
-    let [item] = userdb.filter(v => v.userId===userId && v.userPw===userPw)
-    if(item!=undefined){
-        if(item.userId!=undefined){
-            req.session.user={...item}
-            //홈으로 보내기
-            res.send(alertmove('/','로그인 되었습니다.'))
-        }
-    } else {
-        //아이디와 패스워드가 틀렸다고 알림뜨기.
-        res.send(alertmove('/user/login','아이디와 패스워드를 확인해주세요.'))
-    }
-    //로그인상태는 세션으로 처리하기
+    pool.getConnection((err,conn) => {
+        conn.query("select userid,userpw from userdb",(error,result)=>{
+            let useridFlag = false
+            for(let i=0; i<result.length; i++){
+                if(result[i].userid===userId && result[i].userpw===userPw){
+                    useridFlag=true;
+                    break;
+                }
+            }
+            if(useridFlag){
+                req.session.login='1'
+                //로그인 상태 = 1을 저장할 세션 생성
+                let {logOn} = req.session
+
+                //홈으로 보내기
+                res.redirect('/')
+            } else {
+                //아이디와 패스워드가 틀렸다고 알림뜨기.
+                res.send(alertmove('/user/login','아이디와 패스워드를 확인해주세요.'))
+            }
+        })
+    })
 }
 
 const join = (req, res) => {
@@ -35,12 +44,9 @@ const join = (req, res) => {
 }
 
 const joinCheck = (req, res) => {
-    userdata = req.body
-    let {userId,userPw,checkPw,userName,nickname,gender,phoneNumber,level,active} = userdata
-    userdata.level = '1'
-    userdata.active = '1';
-    console.log('userdata 초기화 데이터 ---> ',userdata)
-    console.log('userId ---> ',userId)
+    let {userId,userPw,checkPw,userName,nickname,gender,phoneNumber,level,active} = req.body
+    level = '1'
+    active = '1';
     
     //아무것도 입력하지 않았을때
     let blankFlag = (userId==''||userPw==''||checkPw==''||userName==''||nickname==''||gender==''||phoneNumber=='')
@@ -77,9 +83,6 @@ const joinCheck = (req, res) => {
                 //같은 아이디가 없으면 db에 저장하는 로직
                 conn.query(userSqlInsert,(error,result)=>{
                     if (!error) {
-                        //회원리스트에 추가
-                        delete userdata.checkPw //확인 비밀번호 제거
-                        req.session.user={...userdata} // 데이터에 저장할 완성본, 세션 잘 생성됨 확인함
                     }
                 })
                 res.redirect('/user/welcome')
@@ -91,7 +94,7 @@ const joinCheck = (req, res) => {
 
 
 const welcome = (req, res) => {
-    //1. 가입만하고 로그인은 되지 않은 상태 or 가입 즉시 로그인이 된 상태
+    //1. 가입만하고 로그인은 되지 않은 상태
     
     // 가입한 회원의 정보를 가져와서 화면에 보이게
     const {user} = req.session
