@@ -1,7 +1,7 @@
 use team;
 
 CREATE TABLE board(
-    idx int auto_increment,
+    idx int auto_increment primary key,
     subject varchar(50) not null,
     nickname varchar(40) not null,
     content text not null,
