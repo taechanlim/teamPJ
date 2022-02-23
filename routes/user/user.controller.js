@@ -35,53 +35,51 @@ const join = (req, res) => {
 }
 
 const joinCheck = (req, res) => {
-    //입력창을 전부 입력하지 않았을때
-    const {userId,userPw,checkPw,userName,nickname,gender,phoneNumber} =req.body
+//아무것도 입력하지 않았을때
+let blankFlag = (userId==''||userPw==''||checkPw==''||userName==''||nickname==''||gender==''||phoneNumber=='')
+if(blankFlag==true){
+    //전부 입력하지 않았을때 출력결과
+    res.send(alertmove('/user/join','입력창에 입력을 모두 해주세요'))
+} else {
+    //모두 입력을 했을때 이후 로직
+    let [checkId] = userdb.filter(v=>(v.userId===userId))
+    const regex = /[^0-9]/g; // 숫자가 아닌 문자열을 선택하는 정규식
+    let phoneNumberFix = phoneNumber.replace(regex,"") //숫자외 값은 ''로 처리
 
-    //아무것도 입력하지 않았을때
-    let blankFlag = (userId==''||userPw==''||checkPw==''||userName==''||nickname==''||gender==''||phoneNumber=='')
-    if(blankFlag==true){
-        //아무것도 입력하지 않았을때 출력결과
-        res.send(alertmove('/user/join','입력창에 입력을 모두 해주세요'))
-    } else {
-        //모두 입력을 했을때 이후 로직
-        //기존 유저중에 같은 id가 있을때
-        let [checkId] = userdb.filter(v=>(v.userId===userId))
-        const regex = /[^0-9]/g; // 숫자가 아닌 문자열을 선택하는 정규식
-        let phoneNumberFix = phoneNumber.replace(regex,"") //숫자외 값은 ''로 처리
+    let userSqlInsert = `INSERT INTO userdb(userId,userPw,userName,nickname,gender,phoneNumber,level,active) VALUES('${userId}','${userPw}','${userName}','${nickname}','${gender}','${phoneNumber}','${level}','${active}')`
 
-        if (checkId!=undefined){
-            res.send(alertmove('/user/join','동일한 아이디가 있습니다. 다른 아이디를 입력해주세요'))
-        } else if(userPw!=checkPw){
-            //비밀번호가 서로 같지 않을때 출력결과
-            res.send(alertmove('/user/join','비밀번호가 서로 같지 않습니다. 다시 입력해주세요'))
-        } else if((phoneNumberFix<5)){
-            //전화번호가 5자리 이하를 입력했을때 출력결과
-            res.send(alertmove('/user/join','전화번호를 다시 입력해주세요'))
-        } else{
-            //회원리스트에 추가
-            let userdata = req.body
-            delete userdata.checkPw //확인 비밀번호 제거
-            userdata.level='1' // 가입시 레벨 1
-            userdata.active='1' // 허용 레벨 1
-            // console.log(userdata)
-            req.session.user={...userdata} // 데이터에 저장할 완성본
-            
-            pool.getConnection((err, conn) => {
-                const sql = "INSERT INTO userdb SET ?" //입력값을 폼 그대로 가져옴.
-                conn.query(sql,userdata,function(error, result){ //sql값을 userdata 데이터베이스에 넣음.
+    //db에 저장하기 전에 비교하는 로직
+    pool.getConnection((err,conn) => {
+        let idcheckFlag=false
+        conn.query("select userid from userdb",(error,result)=>{
+            for(let i=0; i<result.length; i++){
+                if(result[i].userid!==undefined){
+                    if(result[i].userid===userId)
+                    // 같은 아이디가 있으면 join으로 돌려보냄
+                    res.send(alertmove('/user/join','동일한 아이디가 있습니다. 다른 아이디를 입력해주세요'))
+                }
+            }
+
+            if(userPw!=checkPw){
+                //비밀번호가 서로 같지 않을때 출력결과
+                res.send(alertmove('/user/join','비밀번호가 서로 같지 않습니다. 다시 입력해주세요'))
+            } else if((phoneNumberFix<5)){
+                //전화번호가 5자리 이하를 입력했을때 출력결과
+                res.send(alertmove('/user/join','전화번호를 다시 입력해주세요'))
+            } else{
+                //같은 아이디가 없으면 db에 저장하는 로직
+                conn.query(userSqlInsert,(error,result)=>{
                     if (!error) {
-                        // const ID = result[0].userId
-                        console.log(sql)
-                        res.send(alertmove('/user/welcome','회원가입이 완료되었습니다.'))
-                    }
-                    else {
-                        throw error
+                        //회원리스트에 추가
+                        delete userdata.checkPw //확인 비밀번호 제거
+                        req.session.user={...userdata} // 데이터에 저장할 완성본, 세션 잘 생성됨 확인함
                     }
                 })
-            })
-        }
-    }
+                res.redirect('/user/welcome')
+            }
+        })
+    })
+}
 }
 
 const welcome = (req, res) => {
