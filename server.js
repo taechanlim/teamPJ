@@ -30,6 +30,20 @@ app.use(express.static('public'))
 const userdb = require('./models/userdb')
 
 
+const MenuChange = (req, res, next) => {
+
+    let { user } = req.session
+    if (user != undefined) {
+        res.locals.checkLogin = 1
+        next()
+    } else {
+        res.locals.checkLogin = 0
+        next()
+    }
+}
+
+app.use(MenuChange)
+
 // main
 app.use(router)
 
