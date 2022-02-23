@@ -6,6 +6,7 @@ const boardRouter = require('./board/index')
 const userRouter = require('./user/index')
 const {alertmove} = require('../util/alert')
 const adminRouter = require('./admin/index')
+const { rawListeners } = require('../models/userdb1')
 
 
 const Access = (req,res,next)=>{
@@ -19,7 +20,7 @@ const Access = (req,res,next)=>{
 
 
 router.get('/', (req,res) => {
-    let {logOn} = req.session
+    console.log(req.session)
     res.render('index')
 })
 
