@@ -24,10 +24,10 @@ const loginCheck = (req, res) => {
                 }
             }
             if(useridFlag){
-                req.session.login='1'
                 //로그인 상태 = 1을 저장할 세션 생성
-                let {logOn} = req.session
-
+                req.session.logOn='1'
+                req.session.userInfo=req.body
+                
                 //홈으로 보내기
                 res.redirect('/')
             } else {
@@ -110,9 +110,7 @@ const profile = (req, res) => {
     //로그인한 사용자본인+관리자계정에게만 페이지 보이게
     // console.log(req.session)
     const {user} = req.session
-    res.render('user/profile',{
-        item:user
-    }) //화면 렌더링
+    res.render('user/profile')
 }
 
 const logout = (req, res) => {

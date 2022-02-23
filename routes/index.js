@@ -18,14 +18,10 @@ const Access = (req,res,next)=>{
 }
 
 
-router.get('/', (req, res) => {
-    let {user} = req.session
-    res.render('index',{
-        user
-    })
+router.get('/', (req,res) => {
+    let {logOn} = req.session
+    res.render('index')
 })
-
-
 
 //board 라우터 모음
 router.use('/board',Access,boardRouter)
