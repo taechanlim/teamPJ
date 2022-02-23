@@ -10,13 +10,13 @@ td {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background: #F4EFEA;
+    background: #000084;
     z-index: 1;
 }
 
 #admin-content > h2 {
     font-size : 50px;
-    color: #9A161F;
+    color: #ffffff;
     padding: 2vw;
     margin: 5vh 0;
     text-align: center;
@@ -26,11 +26,11 @@ td {
     display: block;
     width: 100px;
     height: 40px;
-    background: #9A161F;
+    background: #ffffff;
     font-size: 20px;
     border: none;
     border-radius: 10px;
-    color: #F4EFEA;
+    color: #000084;
     margin-top: 20px;
     text-align: center;
     line-height: 40px;
@@ -48,16 +48,17 @@ td {
 
 .title > td {
     padding: 20px 10px;
-    border-bottom: 2px solid #9A161F;
-    background-color: rgba(154, 22, 31, 0.3);
+    border-bottom: 2px solid #ffffff;
+    background-color: rgba(190, 190, 190, 0.3);
     text-align: center;
+    color: #ffffff;
 }
 
 .article > td {
     padding-top: 20px;
     padding-bottom: 20px;
-    border-bottom: 1px solid #9A161F;
-    
+    border-bottom: 1px solid #ffffff;
+    color: #ffffff;
 }
 
 .idx {
@@ -73,7 +74,7 @@ td {
 }
 
 .subject > a {
-    color: black;
+    color: #ffffff;
 }
 
 .nickname {
