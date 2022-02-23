@@ -1,4 +1,3 @@
-const { application } = require('express')
 const express = require('express')
 const router = express.Router()
 const user = require('../models/userdb')
@@ -28,7 +27,7 @@ router.get('/', (req, res) => {
 
 
 //board 라우터 모음
-router.use('/board',Access,boardRouter)
+router.use('/board',boardRouter)
 
 //admin 라우터 모음
 router.use('/admin', adminRouter)
