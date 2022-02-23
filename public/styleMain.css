@@ -28,6 +28,10 @@ a {text-decoration: none;}
     z-index: 3;
 }
 
+#header.background {
+    border-bottom: 2px solid #9A161F;
+}
+
 #header > h1 > a {
     color: #9A161F;
     font-size: 40px;

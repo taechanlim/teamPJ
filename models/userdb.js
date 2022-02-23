@@ -7,9 +7,12 @@ let userdb = [
         gender: '여자',
         phoneNumber: '01011112222',
         level: 1,
-        active: 1
+        active: 1 //회원 차단 여부
     }
 ]
+
+// 일반 가입자 레벨 1 && 관리자 레벨 2
+// 허용 상태 : 1 && 차단 상태 0
 
 module.exports = {
     userdb,
