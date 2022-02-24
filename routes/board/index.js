@@ -26,7 +26,6 @@ router.get('/view',(req,res)=>{
         (error, result) => {
         if (error) {throw error}
             else{
-                console.log(result[0])
                 res.render('board/view',{list:result[0]})
                 connection.release()
             }
