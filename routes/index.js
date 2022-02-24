@@ -33,7 +33,6 @@ const AdminAccess = (req, res, next) => {
 }
 
 router.get('/', (req,res) => {
-    console.log(req.session)
     res.render('index')
 })
 
