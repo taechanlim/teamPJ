@@ -4,9 +4,10 @@ const userdb = require('../../models/userdb')
 const boarddb = require('../../models/boarddb')
 const list = [...boarddb.data]
 const pool = require('../../models/boarddb2')
+const pools = require('../../models/userdb1')
 
 router.get('/user', (req, res) => {
-    pool.getConnection((err, connection) => {
+    pools.getConnection((err, connection) => {
         connection.query(`SELECT userID, userPW, userName, nickName, gender, phoneNumber FROM userdb`, (error, result) => {   //   수정 필요
             if (error) {
                 throw error
@@ -16,7 +17,6 @@ router.get('/user', (req, res) => {
             }
         })
     })
-    // res.send('관리자 유저페이지 입니다')
     res.render('admin/adminUser', { list: userdb })
 })
 
