@@ -5,6 +5,7 @@ const boardRouter = require('./board/index')
 const userRouter = require('./user/index')
 const { alertmove } = require('../util/alert')
 const adminRouter = require('./admin/index')
+const { rawListeners } = require('../models/userdb1')
 
 
 
@@ -31,14 +32,10 @@ const AdminAccess = (req, res, next) => {
     }
 }
 
-router.get('/', (req, res) => {
-    let { user } = req.session
-    res.render('index', {
-        user
-    })
+router.get('/', (req,res) => {
+    console.log(req.session)
+    res.render('index')
 })
-
-
 
 //board 라우터 모음
 
