@@ -1,6 +1,6 @@
 -- 경로복사&붙여넣기하면 적용됨
 -- opt+cmd+c
-use userSql;
+-- use userSql;
 
 CREATE TABLE userdb(
     userid varchar(15) not null primary key,

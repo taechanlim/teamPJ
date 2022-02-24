@@ -5,11 +5,12 @@ const pool = require('../../models/boarddb2.js')
 router.get('/list',(req,res)=>{
     pool.getConnection((err, connection) => {
         
-        connection.query('select * from board',
+        connection.query(`select idx,subject,nickname,content,DATE_FORMAT(date,'%Y-%m-%d') as date,hit from board`,
         (error, result) => {
         if (error) {throw error}
             else{
                 res.render('board/list',{list:result})
+                connection.release()
             }
         })
     })
@@ -23,6 +24,7 @@ router.get('/view',(req,res)=>{
         if (error) {throw error}
             else{
                 res.render('board/view',{list:result})
+                connection.release()
             }
         })
     })  
@@ -39,11 +41,12 @@ router.post('/write',(req,res)=>{
     let {subject,content} = board
     let nickname = req.session.user.nickname
     let schemafields = [subject,content,nickname]
-    let sql = `INSERT INTO board(subject,content,nickname,date,hit) values(?,?,?,CURRENT_TIMESTAMP,0) `
+    let sql = `INSERT INTO board(subject,content,nickname,date,hit) values(?,?,?,now(),0) `
     pool.getConnection((err, connection) => {
         connection.query(sql,schemafields,(error, result) => {
         if (!error) { 
             res.redirect('/board/list')
+            connection.release()
         }else {
                 throw error
             }
@@ -58,6 +61,7 @@ router.post('/delete',(req,res)=>{
             connection.query(sql,(error, result) => {
             if (!error) {
                 res.redirect('/board/list')
+                connection.release()
             }else {
                     throw error
                 }
@@ -73,6 +77,7 @@ router.get('/update',(req,res)=>{
         if (error) {throw error}
             else{
                 res.render('board/update',{list:result[0]})
+                connection.release()
             }
         })
     })
@@ -87,6 +92,7 @@ router.post('/update',(req,res)=>{
         connection.query(sql,(error, result) => {
         if (!error) { 
             res.redirect(`/board/view?idx=${board.idx}`)
+            connection.release()
         }else {
                 throw error
             }
