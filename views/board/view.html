@@ -3,26 +3,29 @@
 <div id="list-content">
     <h2><a href="/board/list">게시판</a></h2>
     <table>
+        {% for item in list%}
         <tr class="title">
-            <td class="idx">{{item.idx}}</td>
-            <td class="'subject">{{item.subject}}</td>
-            <td class="nickname">{{item.nickname}}</td>
-            <td class="date">{{item.date}}</td>
-            <td class="hit">{{item.hit}}</td>
+            <td class="idx">글번호 : {{item.idx}}</td>
+            <td class="'subject">글제목 : {{item.subject}}</td>
+            <td class="nickname">별명 : {{item.nickname}}</td>
+            
         </tr>
+        
     </table>
 
     <div id="view">
         <p>{{item.content}}</p>
     </div>
+    
     <a class="btn" href="/board/list">목록가기</a>
-    {% if checkUser %}
+    
     <a class="btn" href="/board/update?idx={{item.idx}}">글 수정</a>
     
     <form method="post" action="/board/delete">
-        <input type="hidden" name="idx" value="{{idx}}">
+        <input type="hidden" name="idx" value="{{item.idx}}">
         <input class="btn" type="submit" value="삭제">
     </form>
-    {% endif %}
+    {% endfor %}
+    
 </div>
 {% endblock %}

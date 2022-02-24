@@ -2,21 +2,142 @@ td {
     padding: 20px;
 }
 
-#login-content {
+#admin-content {
     height: 100vh;
     width: 100vw;
-    padding: 300px;
+    padding: 120px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    background: #F4EFEA;
+    align-items: center;
+    background: #000084;
     z-index: 1;
 }
 
-#login-content > h2 {
+#admin-content > h2 {
     font-size : 50px;
-    color: #9A161F;
+    color: #ffffff;
     padding: 2vw;
     margin: 5vh 0;
+    text-align: center;
+}
+
+.btn {
+    display: block;
+    width: 100px;
+    height: 40px;
+    background: #ffffff;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    color: #000084;
+    margin-top: 20px;
+    text-align: center;
+    line-height: 40px;
+}
+
+#admin-content > form > table {
+    width: 70vw;
+    border-collapse: collapse;
+}
+
+.title .article {
+    display: flex;
+    justify-content: space-around;
+}
+
+.title > td {
+    padding: 20px 10px;
+    border-bottom: 2px solid #ffffff;
+    background-color: rgba(190, 190, 190, 0.3);
+    text-align: center;
+    color: #ffffff;
+}
+
+.article > td {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ffffff;
+    color: #ffffff;
+}
+
+.idx {
+    width: 100px;
+    height: 30px;
+    text-align: center;
+}
+
+.subject {
+    width: 500px;
+    height: 30px;
+    padding-left: 20px ;
+}
+
+.subject > a {
+    color: #ffffff;
+}
+
+.nickname {
+    width: 120px;
+    height: 30px;
+    text-align: center;
+}
+
+.date {
+    width: 150px;
+    height: 30px;
+    text-align: center;
+}
+
+.hit {
+    width: 100px;
+    height: 30px;
+    text-align: center;
+}
+
+
+
+
+/* User Admin */
+
+
+#admin-content > table {
+    width: 70vw;
+    border-collapse: collapse;
+}
+
+.userId {
+    width: 150px;
+    height: 30px;
+    text-align: center;
+}
+
+.userName {
+    width: 150px;
+    height: 30px;
+    text-align: center;
+}
+
+.nickname {
+    width: 150px;
+    height: 30px;
+    text-align: center;
+}
+
+.level {
+    width: 150px;
+    height: 30px;
+    text-align: center;
+}
+
+.active {
+    width: 150px;
+    height: 30px;
+    text-align: center;
+}
+
+.smallBtn {
+    width: 100px;
+    height: 30px;
     text-align: center;
 }
