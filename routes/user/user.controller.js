@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {userdb,idpwCheck,idCheck} = require('../../models/userdb')
+const {userdb,idpwCheck,idCheck,genderWord} = require('../../models/userdb')
 const {alertmove} = require('../../util/alert')
 require('dotenv').config()
 const mysql = require('mysql')
@@ -51,7 +51,7 @@ const joinCheck = (req, res) => {
         const regex = /[^0-9]/g; // 숫자가 아닌 문자열을 선택하는 정규식
         let phoneNumberFix = phoneNumber.replace(regex,"") //숫자외 값은 ''로 처리
 
-        let userSqlInsert = `INSERT INTO userdb(userId,userPw,userName,nickname,gender,phoneNumber,level,active) VALUES('${userId}','${userPw}','${userName}','${nickname}','${gender}','${phoneNumber}','${level}','${active}')`
+        let userSqlInsert = `INSERT INTO userdb(userid,userpw,username,nickname,gender,phoneNumber,level,active) VALUES('${userId}','${userPw}','${userName}','${nickname}','${gender}','${phoneNumber}','${level}','${active}')`
 
         //db에 저장하기 전에 비교하는 로직
         pool.getConnection((err,conn) => {
@@ -93,29 +93,26 @@ const welcome = (req, res) => {
 }
 
 const profile = (req, res) => {
-    let userSqlSelect = `SELECT userId,userPw,userName,nickname,gender,phoneNumber,level,active FROM userdb`
-    //로그인한 회원의 정보를 가져와서 화면에 보이도록
-    let sessionId = req.session.user.userId
+    let sessionId = req.session.user.userId // '/'에서 받아온 session
 
+    // login 상태일때
     if(res.locals.checkLogin==1){
+        pool.getConnection((err,conn)=>{
+            //받은 userid 값으로 데이터 내부에서 찾음.
+            conn.query(`SELECT * FROM userdb WHERE (userid='${sessionId}')`,(error, result)=>{
+                let {userid,userpw,username,nickname,gender,phoneNumber,level,active} = result[0]
+                let item = {userid,userpw,username,nickname,gender,phoneNumber,level,active}
 
-    }else{
-        // 로그인 후 이용할 수 있습니다.
-    }
+                item.gender = genderWord(item.gender)
 
-    pool.getConnection((err,conn)=>{
-        conn.query('SELECT userid FROM userdb',(error,result)=>{
-            if(findId(result,sessionId)){
-                
-            }
-            if(res.locals.checkLogin==1){
-                conn.query(userSqlSelect,(error1,result1)=>{
+                res.render('user/profile',{
+                    item,
                 })
-                let {user} = req.session
-                res.render('user/profile')
-            }
+            })
         })
-    })
+    } else { 
+        //로그인 후 이용할 수 있습니다.
+    }
 }
 
 const logout = (req, res) => {
