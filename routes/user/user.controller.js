@@ -81,7 +81,6 @@ const joinCheck = (req, res) => {
     }
 }
 
-
 const welcome = (req, res) => {
     // 가입만 되고 로그인은 안 된 상태
     // 가입한 회원의 정보를 가져와서 화면에 보이게
@@ -94,30 +93,29 @@ const welcome = (req, res) => {
 }
 
 const profile = (req, res) => {
-    //로그인한 사용자본인+관리자계정에게만 페이지 보이게
+    let userSqlSelect = `SELECT userId,userPw,userName,nickname,gender,phoneNumber,level,active FROM userdb`
     //로그인한 회원의 정보를 가져와서 화면에 보이도록
-    let {userInfo} = req.session
-    let useridFlag = false
+    let sessionId = req.session.user.userId
+
+    if(res.locals.checkLogin==1){
+
+    }else{
+        // 로그인 후 이용할 수 있습니다.
+    }
+
     pool.getConnection((err,conn)=>{
         conn.query('SELECT userid FROM userdb',(error,result)=>{
-            for(let i=0; i<result.length; i++){
-                if(result[i].userid ===userInfo.userId){
-                    useridFlag=true;
-                    break;
-                }
+            if(findId(result,sessionId)){
+                
             }
-            if(useridFlag===true){
-                //프로필 접근 가능
-                // console.log('성공')
-            }else{
-                //프로필 접근 불가
-                //로그인이 필요한 메뉴입니다라고 알람?
-                // console.log('실패')
+            if(res.locals.checkLogin==1){
+                conn.query(userSqlSelect,(error1,result1)=>{
+                })
+                let {user} = req.session
+                res.render('user/profile')
             }
         })
     })
-    const {user} = req.session
-    res.render('user/profile')
 }
 
 const logout = (req, res) => {

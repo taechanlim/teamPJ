@@ -15,7 +15,7 @@ let userdb = [
 // 허용 상태 : 1 && 차단 상태 0
 
 
-//같은 id, pw를 찾음
+//같은 id, pw를 찾음 T/F
 function idpwCheck(result,userId,userPw){
     for(let i=0; i<result.length; i++){
         if((result[i].userid===userId && result[i].userpw===userPw)==true){
@@ -24,7 +24,7 @@ function idpwCheck(result,userId,userPw){
     }
 }
 
-//같은 id를 찾음
+//같은 id를 찾음 T/F
 function idCheck(result,userId){
     for(let i=0; i<result.length; i++){
         if(result[i].userid!==undefined){
@@ -32,6 +32,10 @@ function idCheck(result,userId){
             return true
         }
     }
+}
+
+function findId(){
+    
 }
 
 module.exports = {
