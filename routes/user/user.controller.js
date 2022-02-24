@@ -15,14 +15,13 @@ const loginCheck = (req, res, next) => {
     // 세션 생성
     const {userId,userPw} = req.body
     pool.getConnection((err,conn) => {
-        conn.query("select userid,userpw,nickname from userdb",(error,result)=>{
+        conn.query("select userid,userpw from userdb",(error,result)=>{
             if(!error){
                 //동일한 id,pw를 데이터베이스에서 찾는 함수
                 userFlag = idpwCheck(result,userId,userPw)
                 //동일할 경우, 로그인 가능
                 if (userFlag==true){
-                    req.session.user=result
-                    console.log(req.session.user)
+                    req.session.user=req.body
                     res.redirect('/')
                 } else{
                     //동일하지 않을 경우, 로그인 불가
