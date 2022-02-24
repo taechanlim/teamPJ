@@ -111,7 +111,7 @@ const profile = (req, res) => {
             })
         })
     } else { 
-        //로그인 후 이용할 수 있습니다.
+        res.send(alertmove('/user/login','로그인 하신 후에 이용할 수 있습니다.'))
     }
 }
 
@@ -122,12 +122,6 @@ const logout = (req, res) => {
       });
     res.redirect('/')//메인화면으로 보내기
 }
-
-
-// DB 스키마 짜기
-// 필요한 필드
-// --> userId, userPw, userName, nickname, gender, phoneNumber, level, active
-// birth, number항목은 models에 있는 임시 데이터파일에 있는데 그냥 빼주세요.
 
 module.exports = {
     login,
