@@ -133,6 +133,28 @@
     border: 1px solid #ffffff;
     margin-top: 20px;
     padding: 30px;
+    color:#ffffff;
+    font-size: 20px;
+}
+
+#btnDiv {
+    width: 70vw;
+    height: 50px;
+    display: flex;
+}
+
+.smallBtn {
+    display: block;
+    width: 60px;
+    height: 30px;
+    background: #ffffff;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    color: #000084;
+    margin: 20px 30px 0 0;
+    text-align: center;
+    line-height: 30px;
 }
 
 

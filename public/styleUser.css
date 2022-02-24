@@ -214,3 +214,16 @@
     text-align: center;
     line-height: 60px;
 }
+
+#welcome-content > form > input.btn {
+    width: 300px;
+    height: 60px;
+    background: #ffffff;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    color: #000084;
+    margin-top: 20px;
+    text-align: center;
+    line-height: 60px;
+}
