@@ -2,14 +2,26 @@ const express = require('express')
 const router = express.Router()
 const pool = require('../../models/boarddb2.js')
 
+// router.get('/list',(req,res)=>{
+//     pool.getConnection((err, connection) => {
+//         connection.query(`select idx,subject,nickname,content,DATE_FORMAT(date,'%Y-%m-%d') as date,hit from board`,
+//         (error, result) => {
+//         if (error) {throw error}
+//             else{
+//                 res.render('board/list',{list:result})
+//                 connection.release()
+//             }
+//         })
+//     })
+// })
 router.get('/list',(req,res)=>{
+    const pagenum = req.query.p
     pool.getConnection((err, connection) => {
-        
-        connection.query(`select idx,subject,nickname,content,DATE_FORMAT(date,'%Y-%m-%d') as date,hit from board`,
+        connection.query(`select idx,subject,nickname,content,DATE_FORMAT(date,'%Y-%m-%d') as date,hit from board Limit ${pagenum*5},5`,
         (error, result) => {
         if (error) {throw error}
             else{
-                res.render('board/list',{list:result})
+                res.render(`board/list`,{list:result})
                 connection.release()
             }
         })
@@ -39,13 +51,14 @@ router.get('/write',(req,res)=>{
 router.post('/write',(req,res)=>{
     let board = {...req.body}
     let {subject,content} = board
+    console.log(req.session.user)
     let nickname = req.session.user.nickname
     let schemafields = [subject,content,nickname]
     let sql = `INSERT INTO board(subject,content,nickname,date,hit) values(?,?,?,now(),0) `
     pool.getConnection((err, connection) => {
         connection.query(sql,schemafields,(error, result) => {
         if (!error) { 
-            res.redirect('/board/list')
+            res.redirect(`/board/list?p=0`)
             connection.release()
         }else {
                 throw error
