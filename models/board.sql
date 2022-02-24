@@ -10,3 +10,8 @@ CREATE TABLE board(
     hit int not null);
 
 
+-- 만약 글을 모두 지웠을때 idx값을 1부터 다시시작하려면
+-- ALTER TABLE [테이블명] AUTO_INCREMENT=1;
+-- SET @COUNT = 0;
+-- UPDATE [테이블명] SET [AUTO_INCREMENT 열 이름] = @COUNT:=@COUNT+1;
+

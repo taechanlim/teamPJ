@@ -16,7 +16,7 @@ router.get('/list',(req,res)=>{
 })
 
 router.get('/view',(req,res)=>{
-    const index = req.query.idx //정상
+    const index = req.query.idx
     pool.getConnection((err, connection) => {
         connection.query(`select * from board where idx=${index}`,
         (error, result) => {
@@ -53,7 +53,6 @@ router.post('/write',(req,res)=>{
 
 router.post('/delete',(req,res)=>{
     const index = req.body.idx
-    console.log(index)
     pool.getConnection((err, connection) => {
         let sql = `DELETE from board WHERE idx=${index}`
             connection.query(sql,(error, result) => {
@@ -65,26 +64,34 @@ router.post('/delete',(req,res)=>{
         })
     })
 })
+
 router.get('/update',(req,res)=>{
     const index = req.query.idx
-    const view = list[index-1]
-    res.render('board/update',{
-        item:view,
-        index:index,
+    pool.getConnection((err, connection) => {
+        connection.query(`select * from board where idx='${index}'`,
+        (error, result) => {
+        if (error) {throw error}
+            else{
+                res.render('board/update',{list:result[0]})
+            }
+        })
     })
 })
+
+
 router.post('/update',(req,res)=>{
-    const index = req.body.idx
-    const item = {
-        idx : req.body.idx,
-        subject:req.body.subject, 
-        nickname:req.body.nickname,
-        content:req.body.content,
-        date:req.body.date,
-        hit:req.body.hit,
-    }
-    list[index-1] = item
-    res.redirect(`/board/view?idx=${index}`)
+    let board = req.body
+    
+    let sql = `UPDATE board SET subject='${board.subject}',content='${board.content}' WHERE idx=${board.idx}`
+    pool.getConnection((err, connection) => {
+        connection.query(sql,(error, result) => {
+        if (!error) { 
+            res.redirect(`/board/view?idx=${board.idx}`)
+        }else {
+                throw error
+            }
+        })
+    })
 })
 
 module.exports = router

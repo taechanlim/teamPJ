@@ -12,4 +12,4 @@ CREATE TABLE userdb(
     level int(1) not null,
     active int(1) not null
 );
- 
+
