@@ -6,7 +6,8 @@ const pool = require('../../models/boarddb2.js')
 router.get('/list',(req,res)=>{
     const pagenum = req.query.p
     pool.getConnection((err, connection) => {
-        connection.query(`select idx,subject,nickname,content,DATE_FORMAT(date,'%Y-%m-%d') as date,hit from board Limit ${pagenum*5},5`,
+        connection.query(`select idx,subject,nickname,content,DATE_FORMAT(date,'%Y-%m-%d') as date,hit from board order by idx desc
+         Limit ${pagenum*5},5`,
         (error, result) => {
         if (error) {throw error}
             else{
