@@ -9,7 +9,7 @@ const pools = require('../../models/userdb1')
 
 router.get('/user', (req, res) => {
     pools.getConnection((err, connection) => {
-        connection.query(`SELECT userid, userpw, username, nickname, gender, phonenumber FROM userdb`, (error, result) => {   //   수정 필요
+        connection.query(`SELECT userId, userPw, userName, nickname, gender, phonenumber FROM userdb`, (error, result) => {   //   수정 필요
             if (error) {
                 throw error
             } else {
