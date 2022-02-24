@@ -20,12 +20,14 @@ router.get('/list',(req,res)=>{
 
 router.get('/view',(req,res)=>{
     const index = req.query.idx
+    let Sql = `select * from board WHERE idx=${index} ; UPDATE board SET hit=hit+1 WHERE idx=${index}`
     pool.getConnection((err, connection) => {
-        connection.query(`select * from board where idx=${index}`,
+        connection.query(Sql,
         (error, result) => {
         if (error) {throw error}
             else{
-                res.render('board/view',{list:result})
+                console.log(result[0])
+                res.render('board/view',{list:result[0]})
                 connection.release()
             }
         })
