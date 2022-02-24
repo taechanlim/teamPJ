@@ -45,8 +45,6 @@ const join = (req, res) => {
 
 const joinCheck = (req, res) => {
     let {userId,userPw,checkPw,userName,nickname,gender,phoneNumber,level,active} = req.body
-    level = '1'
-    active = '1';
     
     //아무것도 입력하지 않았을때
     let blankFlag = (userId==''||userPw==''||checkPw==''||userName==''||nickname==''||gender==''||phoneNumber=='')
@@ -83,9 +81,11 @@ const joinCheck = (req, res) => {
                 //같은 아이디가 없으면 db에 저장하는 로직
                 conn.query(userSqlInsert,(error,result)=>{
                     if (!error) {
+                        res.redirect('/user/welcome')
+                        conn.release() //connectionLimit 풀어주는 함수
                     }
+                    else throw error
                 })
-                res.redirect('/user/welcome')
                 }
             })
         })
@@ -106,9 +106,28 @@ const welcome = (req, res) => {
 }
 
 const profile = (req, res) => {
-    //로그인한 회원의 정보를 가져와서 화면에 보이도록
     //로그인한 사용자본인+관리자계정에게만 페이지 보이게
-    // console.log(req.session)
+    //로그인한 회원의 정보를 가져와서 화면에 보이도록
+    let {userInfo} = req.session
+    let useridFlag = false
+    pool.getConnection((err,conn)=>{
+        conn.query('SELECT userid FROM userdb',(error,result)=>{
+            for(let i=0; i<result.length; i++){
+                if(result[i].userid ===userInfo.userId){
+                    useridFlag=true;
+                    break;
+                }
+            }
+            if(useridFlag===true){
+                //프로필 접근 가능
+                console.log('성공')
+            }else{
+                //프로필 접근 불가
+                //로그인이 필요한 메뉴입니다라고 알람?
+                console.log('실패')
+            }
+        })
+    })
     const {user} = req.session
     res.render('user/profile')
 }
