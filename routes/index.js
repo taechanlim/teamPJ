@@ -33,8 +33,11 @@ const AdminAccess = (req, res, next) => {
 }
 
 router.get('/', (req,res) => {
-    console.log(req.session)
-    res.render('index')
+    let {user} = req.session
+    console.log(user)
+    res.render('index',{
+        user
+    })
 })
 
 //board 라우터 모음
