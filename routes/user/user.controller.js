@@ -123,6 +123,10 @@ const logout = (req, res) => {
     res.redirect('/')//메인화면으로 보내기
 }
 
+const userDelete = (req, res) => {
+
+}
+
 module.exports = {
     login,
     loginCheck,
@@ -130,5 +134,6 @@ module.exports = {
     joinCheck,
     welcome,
     profile,
-    logout
+    logout,
+    userDelete,
 }
