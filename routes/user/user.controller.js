@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {userdb,idpwCheck,idCheck} = require('../../models/userdb')
+const {userdb,idpwCheck,idCheck,genderWord} = require('../../models/userdb')
 const {alertmove} = require('../../util/alert')
 require('dotenv').config()
 const mysql = require('mysql')
@@ -15,13 +15,14 @@ const loginCheck = (req, res, next) => {
     // 세션 생성
     const {userId,userPw} = req.body
     pool.getConnection((err,conn) => {
-        conn.query("select userid,userpw from userdb",(error,result)=>{
+        conn.query("select userid,userpw,nickname from userdb",(error,result)=>{
             if(!error){
                 //동일한 id,pw를 데이터베이스에서 찾는 함수
                 userFlag = idpwCheck(result,userId,userPw)
                 //동일할 경우, 로그인 가능
                 if (userFlag==true){
-                    req.session.user=req.body
+                    req.session.user=result
+                    console.log(req.session.user)
                     res.redirect('/')
                 } else{
                     //동일하지 않을 경우, 로그인 불가
@@ -51,7 +52,7 @@ const joinCheck = (req, res) => {
         const regex = /[^0-9]/g; // 숫자가 아닌 문자열을 선택하는 정규식
         let phoneNumberFix = phoneNumber.replace(regex,"") //숫자외 값은 ''로 처리
 
-        let userSqlInsert = `INSERT INTO userdb(userId,userPw,userName,nickname,gender,phoneNumber,level,active) VALUES('${userId}','${userPw}','${userName}','${nickname}','${gender}','${phoneNumber}','${level}','${active}')`
+        let userSqlInsert = `INSERT INTO userdb(userid,userpw,username,nickname,gender,phoneNumber,level,active) VALUES('${userId}','${userPw}','${userName}','${nickname}','${gender}','${phoneNumber}','${level}','${active}')`
 
         //db에 저장하기 전에 비교하는 로직
         pool.getConnection((err,conn) => {
@@ -93,29 +94,26 @@ const welcome = (req, res) => {
 }
 
 const profile = (req, res) => {
-    let userSqlSelect = `SELECT userId,userPw,userName,nickname,gender,phoneNumber,level,active FROM userdb`
-    //로그인한 회원의 정보를 가져와서 화면에 보이도록
-    let sessionId = req.session.user.userId
+    let sessionId = req.session.user.userId // '/'에서 받아온 session
 
+    // login 상태일때
     if(res.locals.checkLogin==1){
+        pool.getConnection((err,conn)=>{
+            //받은 userid 값으로 데이터 내부에서 찾음.
+            conn.query(`SELECT * FROM userdb WHERE (userid='${sessionId}')`,(error, result)=>{
+                let {userid,userpw,username,nickname,gender,phoneNumber,level,active} = result[0]
+                let item = {userid,userpw,username,nickname,gender,phoneNumber,level,active}
 
-    }else{
-        // 로그인 후 이용할 수 있습니다.
-    }
+                item.gender = genderWord(item.gender)
 
-    pool.getConnection((err,conn)=>{
-        conn.query('SELECT userid FROM userdb',(error,result)=>{
-            if(findId(result,sessionId)){
-                
-            }
-            if(res.locals.checkLogin==1){
-                conn.query(userSqlSelect,(error1,result1)=>{
+                res.render('user/profile',{
+                    item,
                 })
-                let {user} = req.session
-                res.render('user/profile')
-            }
+            })
         })
-    })
+    } else { 
+        res.send(alertmove('/user/login','로그인 하신 후에 이용할 수 있습니다.'))
+    }
 }
 
 const logout = (req, res) => {
@@ -125,12 +123,6 @@ const logout = (req, res) => {
       });
     res.redirect('/')//메인화면으로 보내기
 }
-
-
-// DB 스키마 짜기
-// 필요한 필드
-// --> userId, userPw, userName, nickname, gender, phoneNumber, level, active
-// birth, number항목은 models에 있는 임시 데이터파일에 있는데 그냥 빼주세요.
 
 module.exports = {
     login,

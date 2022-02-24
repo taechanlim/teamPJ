@@ -34,12 +34,16 @@ function idCheck(result,userId){
     }
 }
 
-function findId(){
-    
+function genderWord(gender){
+    if(gender==='W'){gender = '여자'}
+    else if(gender==='M'){gender = '남자'}
+    else{gender = '선택안함'}
+    return gender
 }
 
 module.exports = {
     userdb,
     idpwCheck,
     idCheck,
+    genderWord,
 }
