@@ -17,14 +17,15 @@
         <p>{{item.content}}</p>
     </div>
     
-    <a class="btn" href="/board/list?p=0">목록가기</a>
+    <div id="btnDiv">
+        <a class="smallBtn" href="/board/list?p=0">목록가기</a>
+        <a class="smallBtn" href="/board/update?idx={{item.idx}}">글 수정</a>
+        <form method="post" action="/board/delete">
+            <input type="hidden" name="idx" value="{{item.idx}}">
+            <input class="smallBtn" type="submit" value="삭제">
+        </form>
+    </div>
     
-    <a class="btn" href="/board/update?idx={{item.idx}}">글 수정</a>
-    
-    <form method="post" action="/board/delete">
-        <input type="hidden" name="idx" value="{{item.idx}}">
-        <input class="btn" type="submit" value="삭제">
-    </form>
     {% endfor %}
     
 </div>
