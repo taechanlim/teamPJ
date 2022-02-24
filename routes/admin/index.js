@@ -6,6 +6,7 @@ const list = [...boarddb.data]
 const pool = require('../../models/boarddb2')
 const pools = require('../../models/userdb1')
 
+
 router.get('/user', (req, res) => {
     pools.getConnection((err, connection) => {
         connection.query(`SELECT userid, userpw, username, nickname, gender, phonenumber FROM userdb`, (error, result) => {   //   수정 필요
