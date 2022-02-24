@@ -40,7 +40,6 @@ router.get('/write',(req,res)=>{
 router.post('/write',(req,res)=>{
     let board = {...req.body}
     let {subject,content} = board
-    console.log(req.session.user)
     let nickname = req.session.user.userId
     let schemafields = [subject,content,nickname]
     let sql = `INSERT INTO board(subject,content,nickname,date,hit) values(?,?,?,now(),0) `
@@ -62,7 +61,7 @@ router.post('/delete',(req,res)=>{
         let sql = `DELETE from board WHERE idx=${index}`
             connection.query(sql,(error, result) => {
             if (!error) {
-                res.redirect('/board/list')
+                res.redirect('/board/list?p=0')
                 connection.release()
             }else {
                     throw error
