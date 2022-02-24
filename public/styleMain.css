@@ -3,6 +3,10 @@
     src: url(./fonts/DungGeunMo.otf);
 }
 
+@keyframes blink-effect { 50% { opacity: 0; } }
+
+
+
 *{
     margin: 0;
     padding: 0;
@@ -38,11 +42,96 @@ a {text-decoration: none;}
     border-bottom: 2px solid #ffffff;
 }
 
+#header > h1 { 
+}
+
 #header > h1 > a {
+    display: inline-block;
     color: #ffffff;
     font-size: 40px;
     font-weight: bold;
 }
+
+#logotr {
+    display: inline-block;
+    width: 100px;
+    height: 50px;
+    background: #000084;
+    position: relative;
+    top:10px;
+    right: 100px;
+}
+
+#logotr.on0 {
+    right: 100px;
+}
+
+#logotr.on1 {
+    right: 90px;
+}
+
+#logotr.on2 {
+    right: 80px;
+}
+
+#logotr.on3 {
+    right: 70px;
+}
+
+#logotr.on4 {
+    right: 60px;
+}
+
+#logotr.on5 {
+    right: 50px;
+}
+
+#logotr.on6 {
+    right: 40px;
+}
+
+#logotr.on7 {
+    right: 30px;
+}
+
+#logotr.on8 {
+    right: 20px;
+}
+
+#logotr.on9 {
+    right: 10px;
+}
+
+#logotr.on10 {
+    right: 0px;
+}
+
+#logotr.on11 {
+    right: -10px;
+}
+
+#logotr.on12 {
+    right: -20px;
+}
+
+#logotr.on13 {
+    right: -30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #header > #menu > #navi-flag {
     display: none;
@@ -130,13 +219,31 @@ a {text-decoration: none;}
 
 #main-content {
     height: 100vh;
-    padding-top: 120px;
+    padding-top: 100px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 1;
     background: #000084;
     
+}
+
+#main-content > #selectDiv {
+    width: 70vw;
+    height: 10vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+#main-content > #selectDiv > button{
+    width: 10vw;
+    height: 5vh;
+    background-color: #00aaaa;
+    box-shadow: 3px 3px #444444;;
+    font-size: 20px;
 }
 
 #main-content > #slideDiv {
@@ -145,5 +252,68 @@ a {text-decoration: none;}
     background-color: #ffffff;
     border: 5px solid #888888;
     box-shadow: 10px 10px #444444;
-    padding: 15px;
+    box-sizing: content-box;
+    overflow: hidden;
+}
+
+#slideDiv > ul{
+    width: 350vw;
+    height: 50vh;
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+    left: 0;
+    transition: all 0.5s;
+}
+
+#slideDiv > ul.sliding1{
+    left: 0vw;
+}
+
+#slideDiv > ul.sliding2{
+    left: -70vw;
+}
+
+#slideDiv > ul.sliding3{
+    left: -140vw;
+}
+
+#slideDiv > ul.sliding4{
+    left: -210vw;
+}
+
+#slideDiv > ul.sliding5{
+    left: -280vw;
+}
+
+#slideDiv > ul > li{
+    width: 70vw;
+    height: 50vh;
+    padding: 3vw;
+}
+
+/* #slideDiv > ul > li:nth-child(1){
+    background-color: red;
+}
+
+#slideDiv > ul > li:nth-child(2){
+    background-color: yellow;
+}
+
+#slideDiv > ul > li:nth-child(3){
+    background-color: green;
+}
+
+#slideDiv > ul > li:nth-child(4){
+    background-color: blue;
+}
+
+#slideDiv > ul > li:nth-child(5){
+    background-color: purple;
+} */
+
+.blink {
+    font-size: 20px;
+    animation: blink-effect 1s step-end infinite;
+    cursor: pointer;
 }

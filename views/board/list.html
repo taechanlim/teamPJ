@@ -1,7 +1,7 @@
 {% extends "./_layout.html" %}
 {% block content %}
 <div id="list-content">
-    <h2><a href="/board/list">게시판</a></h2>
+    <h2><a href="/board/list?p=0">게시판</a></h2>
     <table>
         <tr class="title">
             <td class="idx">글번호</td>
@@ -23,9 +23,9 @@
     
     <ul id="page">
         <!-- 이부분은 for문으로 처리할 예정 -->
-        <li><a href="/board/list?p=1">1</a></li>
-        <li><a href="/board/list?p=2">2</a></li>
-        <li><a href="/board/list?p=3">3</a></li>
+        <li><a href="/board/list?p=0">1</a></li>
+        <li><a href="/board/list?p=1">2</a></li>
+        <li><a href="/board/list?p=2">3</a></li>
     </ul>
     <a class='btn' href="/board/write">글쓰기</a>
 </div>

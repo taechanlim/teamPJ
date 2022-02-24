@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./styleMain.css" type="text/css">
-    <script src="./script.js" type="text/javascript"></script>
+    <script defer src="./script.js" type="text/javascript"></script>
 </head>
 <body>
     <div id="wrap">
         <div id="header">
-            <h1><a href="/">LOGO</a></h1>
+            <h1><a href="/">LOGO <div id="logotr"></div></a></h1>
             <ul id="menu">
                 <input type="checkbox" id="navi-flag">
                 <label id="hamburger" for="navi-flag">
@@ -21,7 +21,7 @@
                     {% if checkLogin %}
                     <li><a href="/user/logout">LOGOUT</a></li>
                     <li><a href="/user/profile">MY PAGE</a></li>
-                    <li><a href="/board/list">BOARD</a></li>
+                    <li><a href="/board/list?p=0">BOARD</a></li>
                     <li><a href="/admin/user">ADMIN-USER</a></li>
                     <li><a href="/admin/board">ADMIN-BOARD</a></li>
                     {% else %}
@@ -34,5 +34,6 @@
         {% block content %}
         {% endblock %}
     </div>
+    
 </body>
 </html>

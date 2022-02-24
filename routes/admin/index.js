@@ -1,18 +1,23 @@
 const express = require('express')
-const app = express()
-const nunjucks = require('nunjucks')
 const router = express.Router()
 const userdb = require('../../models/userdb')
 const boarddb = require('../../models/boarddb')
 const list = [...boarddb.data]
+const pool = require('../../models/boarddb2')
+const pools = require('../../models/userdb1')
 
-
-app.set('view engine', 'html')
-nunjucks.configure('views', { express: app })
 
 router.get('/user', (req, res) => {
-    // res.send('관리자 유저페이지 입니다')
-    res.render('admin/adminUser', { list: userdb })
+    pools.getConnection((err, connection) => {
+        connection.query(`SELECT userId, userPw, userName, nickname, gender, phonenumber FROM userdb`, (error, result) => {   //   수정 필요
+            if (error) {
+                throw error
+            } else {
+                res.render('admin/adminUser', { list: result })
+                connection.release()
+            }
+        })
+    })
 })
 
 router.post('/user', (req, res) => {
@@ -21,8 +26,20 @@ router.post('/user', (req, res) => {
 })
 
 router.get('/board', (req, res) => {
-    // res.send('관리자 게시판페이지 입니다')
-    res.render('admin/adminBoard', { list })
+    pool.getConnection((err, connection) => {
+        connection.query(`select idx,subject,nickname,content,DATE_FORMAT(date,'%Y-%m-%d') as date,hit from board`, (error, result) => {
+            if (error) {
+                throw error
+            } else {
+                res.render('admin/adminBoard', { list: result })
+                connection.release()
+            }
+        })
+    })
+})
+
+router.post('/board', (req, res) => {
+
 })
 
 

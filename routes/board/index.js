@@ -2,14 +2,17 @@ const express = require('express')
 const router = express.Router()
 const pool = require('../../models/boarddb2.js')
 
+
 router.get('/list',(req,res)=>{
+    const pagenum = req.query.p
     pool.getConnection((err, connection) => {
-        
-        connection.query('select * from board',
+        connection.query(`select idx,subject,nickname,content,DATE_FORMAT(date,'%Y-%m-%d') as date,hit from board order by idx desc
+         Limit ${pagenum*5},5`,
         (error, result) => {
         if (error) {throw error}
             else{
-                res.render('board/list',{list:result})
+                res.render(`board/list`,{list:result})
+                connection.release()
             }
         })
     })
@@ -17,12 +20,14 @@ router.get('/list',(req,res)=>{
 
 router.get('/view',(req,res)=>{
     const index = req.query.idx
+    let Sql = `select * from board WHERE idx=${index} ; UPDATE board SET hit=hit+1 WHERE idx=${index}`
     pool.getConnection((err, connection) => {
-        connection.query(`select * from board where idx=${index}`,
+        connection.query(Sql,
         (error, result) => {
         if (error) {throw error}
             else{
-                res.render('board/view',{list:result})
+                res.render('board/view',{list:result[0]})
+                connection.release()
             }
         })
     })  
@@ -37,13 +42,14 @@ router.get('/write',(req,res)=>{
 router.post('/write',(req,res)=>{
     let board = {...req.body}
     let {subject,content} = board
-    let nickname = req.session.user.nickname
+    let nickname = req.session.user.userId
     let schemafields = [subject,content,nickname]
-    let sql = `INSERT INTO board(subject,content,nickname,date,hit) values(?,?,?,CURRENT_TIMESTAMP,0) `
+    let sql = `INSERT INTO board(subject,content,nickname,date,hit) values(?,?,?,now(),0) `
     pool.getConnection((err, connection) => {
         connection.query(sql,schemafields,(error, result) => {
         if (!error) { 
-            res.redirect('/board/list')
+            res.redirect(`/board/list?p=0`)
+            connection.release()
         }else {
                 throw error
             }
@@ -57,7 +63,8 @@ router.post('/delete',(req,res)=>{
         let sql = `DELETE from board WHERE idx=${index}`
             connection.query(sql,(error, result) => {
             if (!error) {
-                res.redirect('/board/list')
+                res.redirect('/board/list?p=0')
+                connection.release()
             }else {
                     throw error
                 }
@@ -73,6 +80,7 @@ router.get('/update',(req,res)=>{
         if (error) {throw error}
             else{
                 res.render('board/update',{list:result[0]})
+                connection.release()
             }
         })
     })
@@ -87,6 +95,7 @@ router.post('/update',(req,res)=>{
         connection.query(sql,(error, result) => {
         if (!error) { 
             res.redirect(`/board/view?idx=${board.idx}`)
+            connection.release()
         }else {
                 throw error
             }
