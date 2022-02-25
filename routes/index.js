@@ -41,7 +41,7 @@ router.get('/', (req,res) => {
 
 //board 라우터 모음
 
-router.use('/board', boardRouter)
+router.use('/board', Access, boardRouter)
 
 
 //admin 라우터 모음
