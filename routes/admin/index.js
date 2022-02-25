@@ -1,14 +1,12 @@
 const express = require('express')
 const router = express.Router()
 const userdb = require('../../models/userdb')
-const boarddb = require('../../models/boarddb')
-const list = [...boarddb.data]
 const pool = require('../../models/boarddb2')
 
 
 router.get('/user', (req, res) => {
     pool.getConnection((err, connection) => {
-        connection.query(`SELECT userId, userPw, userName, nickname, gender, phonenumber FROM userdb`, (error, result) => {   //   수정 필요
+        connection.query(`SELECT userId, userPw, userName, nickname, gender, phonenumber FROM userdb`, (error, result) => {
             if (error) {
                 throw error
             } else {
