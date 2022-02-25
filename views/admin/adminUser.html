@@ -13,16 +13,17 @@
         </tr>
         {% for item in list%}
         <tr class="article">
-            <form method="post" action="/admin">
+            <form method="post" action="/admin/user">
+                <input type="hidden" name="userId" value="{{item.userId}}">
                 <td class="userId">{{item.userId}}</td>
                 <td class="userName">{{item.userName}}</a></td>
                 <td class="nickname">{{item.nickname}}</td>
                 <td class="level">{{item.level}}
                     <select name="level" id="select-level">
                         <option value selected value={{item.level}}>레벨변경</option>
-                        <option value=1>최고관리자</option>
+                        <option value=3>최고관리자</option>
                         <option value=2>관리자</option>
-                        <option value=3>회원</option>
+                        <option value=1>회원</option>
                     </select>
                 </td>
                 <td class="active">
