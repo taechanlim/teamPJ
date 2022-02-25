@@ -3,6 +3,7 @@ const router = express.Router()
 const pool = require('../../models/boarddb2.js')
 
 
+
 router.get('/list',(req,res)=>{
     const pagenum = req.query.p
     pool.getConnection((err, connection) => {
