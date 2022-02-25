@@ -1,7 +1,7 @@
 {% extends "./_layout.html" %}
 {% block content %}
 <div id="list-content">
-    <h2><a href="/board/list?p=0">게시판</a></h2>
+    <h2><a href="/board/list?p=1">게시판</a></h2>
     <table>
         {% for item in list%}
         <tr class="title">
@@ -18,7 +18,7 @@
     </div>
     
     <div id="btnDiv">
-        <a class="smallBtn" href="/board/list?p=0">목록가기</a>
+        <a class="smallBtn" href="/board/list?p=1">목록가기</a>
         {% if myContent %}
         <a class="smallBtn" href="/board/update?idx={{item.idx}}">글 수정</a>
         <form method="post" action="/board/delete">

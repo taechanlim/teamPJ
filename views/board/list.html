@@ -1,7 +1,7 @@
 {% extends "./_layout.html" %}
 {% block content %}
 <div id="list-content">
-    <h2><a href="/board/list?p=0">게시판</a></h2>
+    <h2><a href="/board/list?p=1">게시판</a></h2>
     <table>
         <tr class="title">
             <td class="idx">글번호</td>
@@ -21,12 +21,13 @@
         {% endfor %}
     </table>
     
+
+
     <ul id="page">
-        <li><a href="/board/list?p=0">1</a></li>
-        <li><a href="/board/list?p=1">2</a></li>
-        <li><a href="/board/list?p=2">3</a></li>
-        <li><a href="/board/list?p=2">4</a></li>
-        <li><a href="/board/list?p=2">5</a></li>
+        <!-- i=total_record i<total_record - view_article i -->
+        {% for page in pages%}
+        <li><a href="/board/list?p={{page}}">{{page}}</a></li>
+        {% endfor %}
     </ul>
     <a class='btn' href="/board/write">글쓰기</a>
 </div>
