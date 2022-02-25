@@ -12,8 +12,8 @@ CREATE TABLE board(
 
 
 -- 만약 글을 모두 지웠을때 idx값을 1부터 다시시작하려면
--- ALTER TABLE [테이블명] AUTO_INCREMENT=1;
+-- ALTER TABLE board AUTO_INCREMENT=1;
 -- SET @COUNT = 0;
--- UPDATE [테이블명] SET [AUTO_INCREMENT 열 이름] = @COUNT:=@COUNT+1;
+-- UPDATE board SET idx = @COUNT:=@COUNT+1;
 -- select subject,nickname,content,DATE_FORMAT(date,'%Y-%m-%d %h:%m:%s') as date,hit from board; 게시판 리스트 시간표시
 
