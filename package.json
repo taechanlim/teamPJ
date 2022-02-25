@@ -5,6 +5,7 @@
     "express-session": "^1.17.2",
     "memorystore": "^1.6.7",
     "mysql": "^2.18.1",
+    "mysql2": "^2.3.3",
     "nunjucks": "^3.2.3"
   },
   "name": "teampj",

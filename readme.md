@@ -1,29 +1,18 @@
-# git pull origin main 으로 변경사항 가져온 뒤 작업해주세요
-# server.js 파일에 app.use(express.static('public')) 써주세요
+# TEAM5 
+![1](https://user-images.githubusercontent.com/99451529/155673935-3957bb4c-a062-421b-960d-7da85130945b.gif)
+- 로그인 / 게시판 / 관리자페이지가 있는 웹사이트 구현
+- 작업기간 : 1주일 (22/02/21 ~ 22/02/25)
+- 노션 : https://broken-tungsten-103.notion.site/2438ccdda0734d309838a50b362e4010
+<br>
+<br>
+<br>
 
-## 각 라우터에서 넘겨줄 변수는 해당 라우터와 연결된 html 파일을 참고해주세요
-## user
-- userId
-- userPw
-- userName
-- nickname
-- birth
-- gender
-- number
-- phoneNumber
-- level: 1,2,3으로 나눠짐
-- active: 1(활동상태), 0(활동정지)
+  
+#  
+## 팀 소개
+- 한빈 : 팀장, Front-End 및 전체 일정 조율 담당  
+- 현진 : Back-End - USER 담당 : 로그인, 로그아웃, 회원가입, 회원탈퇴, 프로필  
+- 태찬 : Back-End - BOARD 담당 : 게시판 리스트, 글쓰기, 글보기, 글수정, 글삭제  
+- 화섭 : Back-End - ADMIN 담당 : 유저관리, 게시물관리  
 
-## board
-- idx
-- subject
-- nickname
-- content
-- date: 타임스탬프로 mysql저장
-- hit
 
-### 그 외 변수
-- join페이지에서 비밀번호 확인하는 checkPw
-- view페이지에서 사용자 확인해서 수정,삭제 버튼 뜨도록 하는 checkUser
-
-### 계속 내용 추가 예정
