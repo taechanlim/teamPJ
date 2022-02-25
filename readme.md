@@ -8,7 +8,7 @@
 - 진행 방식 :
   1. 매일 5시 함께 그 날의 진행상황을 공유하는 시간을 가집니다. 
   2. 줌을 켜둔 상태로 작업을 하기때문에 서로간에 소통이 필요한 부분이 있다면 언제든 호출하여 의논합니다.
-- 노션 : `https://broken-tungsten-103.notion.site/2438ccdda0734d309838a50b362e4010`
+- 노션 : https://broken-tungsten-103.notion.site/2438ccdda0734d309838a50b362e4010
 <br>
 <br>
 <br>
@@ -24,13 +24,13 @@
 <br>
 <br>
 
-## 페이지 구성  
-링크  
+## 상세 페이지 구성  
+https://github.com/hb707/teamPJ/wiki/Details
 <br><br><br>
 
 
 ## 작업 일지
-- 한빈 : 링크
-- 현진 : 링크
-- 태찬 : 링크
-- 화섭 : 링크
+- 한빈 : https://github.com/hb707/teamPJ/wiki/Log#-%ED%95%9C%EB%B9%88
+- 현진 : https://github.com/hb707/teamPJ/wiki/Log#-%EC%9D%B4%ED%98%84%EC%A7%84
+- 태찬 : https://github.com/hb707/teamPJ/wiki/Log#-%ED%83%9C%EC%B0%AC
+- 화섭 : https://github.com/hb707/teamPJ/wiki/Log#-%ED%99%94%EC%84%AD
