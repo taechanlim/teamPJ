@@ -124,7 +124,17 @@ const logout = (req, res) => {
 }
 
 const userDelete = (req, res) => {
+    let userId = req.body.userid
+    let userSqlDelete = `delete from userdb where userid='${userId}';`
 
+    pool.getConnection((err,conn)=>{
+        //받은 userid 값으로 데이터 내부에서 찾음.
+        conn.query(userSqlDelete,(error,result)=>{
+            req.session.destroy(() => {req.session;});
+            //회원 탈퇴 알람
+            res.send(alertmove('/','회원탈퇴가 완료되었습니다.'))
+        })
+    })
 }
 
 module.exports = {
