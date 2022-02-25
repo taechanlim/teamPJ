@@ -65,7 +65,8 @@ router.post('/write',(req,res)=>{
     let {subject,content} = board
     let nickname = req.session.user.userId
     let schemafields = [subject,content,nickname]
-    let sql = `INSERT INTO board(subject,content,nickname,date,hit) values(?,?,?,now(),0) `
+    let sql = `INSERT INTO board(subject,content,nickname,date,hit) values(?,?,?,now(),0) ; ALTER TABLE board AUTO_INCREMENT=1 ; 
+    SET @COUNT = 0 ; UPDATE board SET idx = @COUNT:=@COUNT+1;`
     pool.getConnection((err, connection) => {
         connection.query(sql,schemafields,(error, result) => {
         if (!error) { 
