@@ -54,7 +54,8 @@ router.post('/board', (req, res) => {
     const boardOutIdx = keylist.forEach(v => idxStr = idxStr + v.slice(5,) + ',')
     idxStr = idxStr.slice(0, -1);
     pool.getConnection((err, connection) => {
-        let sql = `DELETE from board WHERE idx in (${idxStr})`
+        let sql = `DELETE from board WHERE idx in (${idxStr}); ALTER TABLE board AUTO_INCREMENT=1 ; 
+        SET @COUNT = 0 ; UPDATE board SET idx = @COUNT:=@COUNT+1;`
         connection.query(sql, (error, result) => {
             if (!error) {
                 res.redirect('/admin/board')
