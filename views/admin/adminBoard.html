@@ -14,7 +14,7 @@
             </tr>
             {% for item in list%}
             <tr class="article">
-                    <td class="check"><input type="checkbox" name="check" value="{{item.idx}}"></td>
+                    <td class="check"><input type="checkbox" name="check{{item.idx}}"></td>
                     <td class="idx">{{item.idx}}</td>
                     <td class="subject"><a href="/board/view?idx={{item.idx}}">{{item.subject}}</a></td>
                     <td class="nickname">{{item.nickname}}</td>
