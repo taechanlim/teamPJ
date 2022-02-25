@@ -7,7 +7,7 @@
    - Back-End : Node.js, express, MySQL
    - Front-End : HTML, CSS, JS
 - 진행 방식 :
-   - 매일 5시 함께 그 날의 진행상황을 공유하는 시간을 가집니다. 
+   - 매일 5시에 함께 그 날의 진행상황을 공유하는 시간을 가집니다. 
    - 줌을 켜둔 상태로 작업을 하기때문에 서로간에 소통이 필요한 부분이 있다면 언제든 호출하여 의논합니다.
 - 노션 : https://broken-tungsten-103.notion.site/2438ccdda0734d309838a50b362e4010
 <br>
@@ -17,7 +17,7 @@
   
  
 ## 팀 구성
-- 한빈 : 팀장, Front-End 및 전체 일정 조율 담당  `https://github.com/hb707`
+- 한빈 : 팀장, Front-End 및 전체 진행 조율 담당  `https://github.com/hb707`
 - 현진 : Back-End, USER 담당 : 로그인, 로그아웃, 회원가입, 회원탈퇴, 프로필  `https://github.com/lhj12ps`
 - 태찬 : Back-End, BOARD 담당 : 게시판 리스트, 글쓰기, 글보기, 글수정, 글삭제  `https://github.com/taechanlim`
 - 화섭 : Back-End, ADMIN 담당 : 유저관리, 게시물관리  `https://github.com/LeeHwaSeob`
