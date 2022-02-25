@@ -19,11 +19,13 @@
     
     <div id="btnDiv">
         <a class="smallBtn" href="/board/list?p=0">목록가기</a>
+        {% if myContent %}
         <a class="smallBtn" href="/board/update?idx={{item.idx}}">글 수정</a>
         <form method="post" action="/board/delete">
             <input type="hidden" name="idx" value="{{item.idx}}">
             <input class="smallBtn" type="submit" value="삭제">
         </form>
+        {% endif %}
     </div>
     
     {% endfor %}
