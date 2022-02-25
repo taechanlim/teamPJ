@@ -290,7 +290,11 @@ a {text-decoration: none;}
     width: 70vw;
     height: 50vh;
     padding: 3vw;
+    overflow: scroll;
+    -ms-overflow-style: none;
 }
+
+#slideDiv > ul > li::-webkit-scrollbar{ display:none; }
 
 /* #slideDiv > ul > li:nth-child(1){
     background-color: red;
@@ -316,4 +320,22 @@ a {text-decoration: none;}
     font-size: 20px;
     animation: blink-effect 1s step-end infinite;
     cursor: pointer;
+}
+
+.indent {
+    display: inline-block;
+    width: 20px;
+}
+
+#slideDiv > ul > li > p > a {
+    color: #000000;
+}
+
+.name {
+    font-size: 20px;
+}
+
+p {
+    font-size: 18px;
+    line-height: 20px;
 }
